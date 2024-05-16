@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap');
+
+body,
+html {
+    background-color: #21004d;
+    color: #fafafa;
+    font-family: 'Exo', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.container {
+    background-size: cover;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 40px;
+}
+
+.disclaimer {
+    font-size: 0.7em;
+    font-weight: 400;
+    margin: 2.5em 0 2em 0;
+}
+
+#copyToDiscordBtn {
+    display: block;
+    background-color: #5865F2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#copyToDiscordBtn:hover {
+    background-color: #4752C4;
+}
+
+#copyToDiscordBtn:active {
+    background-color: #363E9A;
+}
+
+#copyToDiscordBtn:focus {
+    outline: none;
+}
+
+h2 {
+    font-size: 4em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+#timezone-info {
+    color: #fafafa;
+    font-size: 0.8em;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.event {
+    border: 2px solid #2a065a;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+
+.event-active {
+    background: linear-gradient(to right, #21004d, #370080, #21004d);
+    border: none !important;
+    margin-bottom: 10px;
+    padding: 55px;
+    transition: transform 0.3s ease;
+}
+
+.event:hover,
+.event-active:hover {
+    transform: scale(1.02);
+}
+
+.event-name {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.finished-wave {
+    color: #ff2600;
+}
+
+.finished-event {
+    color: #401974;
+    text-decoration: line-through;
+}
+
+footer {
+    position: absolute;
+    opacity: 0.9;
+    left: 0;
+    text-align: center;
+    padding: 0;
+    width: 100vw;
+}
+
+.happening-now {
+    color: #c880ff;
+    font-size: 2.7em;
+    font-weight: 700;
+}
+
+.wave-happening-now {
+    color: #c880ff;
+    font-weight: 700;
+}
+
+.limited-sales {
+    color: #c6ab6c;
+    font-weight: 700;
+    margin: 2em 0 0 0;
+}
+
+.limited-sales-link {
+    color: #c6ab6c;
+    text-decoration: none;
+}
+
+.limited-sales-link:hover {
+    text-decoration: underline;
+}
+
+.finished-event .limited-sales {
+    display: none;
+}
+
+.finished-event .wave {
+    display: none;
+}
+
+.location {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.location,
+.limited-sales,
+.wave {
+    margin-bottom: 5px;
+}
+
+.location-small {
+    font-size: 0.5em;
+    padding: 10px;
+    display: block;
+}
+
+#schedule {
+    padding: 2em 0;
+}
+
+.wave-pending {
+    color: #152851;
+    font-weight: 700;
+}
+
+.time-left {
+    display: block;
+    font-size: 0.7em;
+}
+
+#timezone-selector {
+    background: #152851;
+    color: #fafafa;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'Exo', sans-serif;
+    font-size: 1em;
+    width: 220px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#timezone-selector:hover,
+#timezone-selector:focus {
+    border-color: #152851;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+label[for="timezone-selector"] {
+    color: #fafafa;
+    font-size: 1em;
+    font-weight: 700;
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px;
+    }
+
+    .event-name {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    #timezone-selector {
+        width: 30%;
+    }
+
+}
