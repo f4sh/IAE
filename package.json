@@ -1,0 +1,31 @@
+{
+  "name": "f4sh-iae",
+  "version": "1.0.0",
+  "description": "Intergalactic Aerospace Expo (IAE) is the biggest ship show in the ‘verse. This interactive web app showcases a comprehensive schedule, countdown timers, and Discord-compatible schedule ready to copy. Stay updated with key event timelines and details effortlessly.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f4sh/ILW.git"
+  },
+  "keywords": [
+    "star",
+    "citizen"
+  ],
+  "author": "f4sh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f4sh/ILW/issues"
+  },
+  "homepage": "https://github.com/f4sh/ILW#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "eslint": "^9.7.0",
+    "globals": "^15.8.0",
+    "webpack": "^5.93.0"
+  }
+}
