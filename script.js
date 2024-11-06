@@ -1,7 +1,7 @@
 const schedule = [
     {
         name: "Crusader and Tumbril",
-        timestamp: 1732291200,
+        timestamp: 1730559600,
         location: "Apex Hall"
     },
     {
