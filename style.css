@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap');
 
-body,
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html {
     background: url('img/2954_bg.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -10,6 +15,7 @@ html {
     padding: 0;
     text-align: center;
     height: 100%;
+    overflow-x: hidden;
 }
 
 .button-container {
@@ -114,7 +120,7 @@ footer {
     left: 0;
     text-align: center;
     padding: 0 0 30px 0;
-    width: 100vw;
+    width: 100%;
 }
 
 .happening-now {
