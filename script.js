@@ -1,74 +1,73 @@
 const schedule = [
     {
-        name: "Gatac/Alien",
-        timestamp: 1700236800,
+        name: "Crusader and Tumbril",
+        timestamp: 1732291200,
         location: "Apex Hall"
     },
     {
         name: "Aegis Dynamics",
-        timestamp: 1700323200,
+        timestamp: 1732377600,
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1700323200, 1700352000, 1700380800]
+        waveTimestamps: [1732377600, 1732406400, 1732435200]
     },
     {
-        name: "Crusader",
-        timestamp: 1700409600,
+        name: "Gatac/Alien Manufacturers",
+        timestamp: 1732464000,
         location: "Apex Hall"
     },
     {
         name: "Origin",
-        timestamp: 1700496000,
+        timestamp: 1732550400,
         location: "Zenith Hall",
         limitedSales: "890 Jump",
-        waveTimestamps: [1700496000, 1700524800, 1700553600]
-    },
-    {
-        name: "Drake",
-        timestamp: 1700582400,
-        location: "Apex Hall",
-        limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
-        waveTimestamps: [1700582400, 1700611200, 1700640000]
-    },
-    {
-        name: "Argo/Consolidated Outland/Greycat/Kruger ",
-        timestamp: 1700668800,
-        location: "Zenith Hall",
-        limitedSales: "Consolidated Outland Pioneer",
-        waveTimestamps: [1700668800, 1700697600, 1700726400]
-    },
-    {
-        name: "Anvil Aerospace",
-        timestamp: 1700755200,
-        location: "Apex Hall"
-    },
-    {
-        name: "Misc/Mirai",
-        timestamp: 1700841600,
-        location: "Zenith Hall",
-        limitedSales: "Misc Hull E",
-        waveTimestamps: [1700841600, 1700870400, 1700899200]
+        waveTimestamps: [1732550400, 1732579200, 1732608000]
     },
     {
         name: "RSI",
-        timestamp: 1700928000,
+        timestamp: 1732636800,
         location: "Apex Hall",
         limitedSales: "Constellation Phoenix",
-        waveTimestamps: [1700928000, 1700956800, 1700985600]
+        waveTimestamps: [1732636800, 1732665600, 1732694400]
+    },
+    {
+        name: "ARGO, CNOU, Greycat, Kruger",
+        timestamp: 1732723200,
+        location: "Zenith Hall",
+        limitedSales: "Consolidated Outland Pioneer",
+        waveTimestamps: [1732723200, 1732752000, 1732780800]
+    },
+    {
+        name: "Drake",
+        timestamp: 1732809600,
+        location: "Apex Hall",
+        limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
+        waveTimestamps: [1732809600, 1732838400, 1732867200]
+    },
+    {
+        name: "MISC, MIRAI",
+        timestamp: 1732896000,
+        location: "Zenith Hall",
+        limitedSales: "Hull E",
+        waveTimestamps: [1732896000, 1732924800, 1732953600]
+    },
+    {
+        name: "Anvil Aerospace",
+        timestamp: 1732982400,
+        location: "Apex Hall"
     },
     {
         name: "Best In Show",
-        timestamp: 1701014400,
+        timestamp: 1733068800,
         location: "Zenith Hall"
     },
     {
-        name: "IAE 2953 Finale",
-        timestamp: 1701100800,
+        name: "IAE 2954 Finale",
+        timestamp: 1733155200,
         location: "Zenith Hall",
-        end: 1701374400
+        end: 1733366400
     }
 ];
-
 
 function populateTimeZones() {
     const timeZones = Intl.supportedValuesOf('timeZone');
@@ -93,15 +92,13 @@ function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
     let timeLeft, isHappening, hasPassed;
 
     if (endTimestamp) {
-        // For events with a specific end time
         const timeUntilEnd = endTimestamp - now;
         timeLeft = calculateTimeLeft(timeUntilEnd);
         isHappening = now >= timestamp && now <= endTimestamp;
         hasPassed = now > endTimestamp;
     } else {
-        // For events with the default 48 hours duration
         const timeUntilStart = timestamp - now;
-        const duration = 172800; // 48 hours in seconds
+        const duration = 172800;
         timeLeft = calculateTimeLeft(timeUntilStart);
         isHappening = timeUntilStart <= 0 && timeUntilStart > -duration;
         hasPassed = timeUntilStart <= -duration;
@@ -125,27 +122,18 @@ function calculateTimeLeft(seconds) {
     return timeLeftText;
 }
 
-
-
 function updateSchedule() {
-    const now = new Date().getTime() / 1000;  // Current time in seconds
+    const now = new Date().getTime() / 1000;
 
-    // Function to determine the status of a wave
     function getWaveStatus(waveTimestamp, nextWaveTimestamp) {
         if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
-            // Current time is after this wave's start but before the next wave's start
             return 'Started. Good Luck!';
         } else if (now < waveTimestamp) {
-            // Current time is before this wave's start
             return 'Upcoming';
         } else {
-            // Current time is after this wave's start and there's another wave that has started
             return 'Passed';
         }
     }
-
-    // Updating the rest of the updateSchedule function to correctly apply the above logic for each wave
-    // ...
 
     const selectedTimeZone = document.getElementById('timezone-selector').value;
     const scheduleContainer = document.getElementById('schedule');
@@ -159,14 +147,14 @@ function updateSchedule() {
 
         if (eventTimeLeft.isHappening) {
             eventHTML = `<div class="event event-active">`;
-            const endTime = event.end ? event.end : event.timestamp + 48 * 3600; // Use custom end time if available, else 48 hours after start
-            const timeLeftToEnd = endTime - (new Date().getTime() / 1000); // Time left in seconds
+            const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
+            const timeLeftToEnd = endTime - (new Date().getTime() / 1000);
 
             let timeLeftText;
             if (timeLeftToEnd > 0) {
-                timeLeftText = calculateTimeLeft(timeLeftToEnd); // Calculate the formatted time left
+                timeLeftText = calculateTimeLeft(timeLeftToEnd);
             } else {
-                timeLeftText = 'Finished'; // If the time left is negative, the event has finished
+                timeLeftText = 'Finished';
             }
 
             eventHTML += `<div class="event-name happening-now">${event.name} - Happening Now in ${event.location}<span class="time-left">${timeLeftText}</span></div>`;
@@ -196,7 +184,6 @@ function updateSchedule() {
                 if (waveTimeLeft.isHappening) {
                     waveStatus = `Wave ${waveIndex + 1}: <span class="wave-happening-now">Started. Good Luck!</span>`;
                     if (lastWaveStatus === 'Happening') {
-                        // Update the HTML of the previous wave to 'Passed'
                         eventHTML = eventHTML.replace(`Wave ${waveIndex}: <span class="wave-happening-now">Started. Good Luck!</span>`, `Wave ${waveIndex}: <span class="finished-wave">Passed</span>`);
                     }
                     lastWaveStatus = 'Happening';
@@ -211,7 +198,6 @@ function updateSchedule() {
                 eventHTML += `<div class="wave">${waveStatus}</div>`;
             });
         }
-
 
         eventHTML += `</div>`;
         scheduleContainer.innerHTML += eventHTML;
@@ -230,18 +216,18 @@ window.onload = () => {
 };
 
 function copyToDiscord() {
-    const discordSchedule = `IAE 2953 Official Schedule:\n\n` +
-        `**Gatac/Alien:**\n<t:1700236800:f> [Apex Hall <t:1700236800:R>]\n\n` +
-        `**Aegis Dynamics:**\n<t:1700323200:f> [Zenith Hall <t:1700323200:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris-K\nWave 1: <t:1700323200:T>, Wave 2: <t:1700352000:T>, Wave 3: <t:1700380800:T>\n\n` +
-        `**Crusader:**\n<t:1700409600:f> [Apex Hall <t:1700409600:R>]\n\n` +
-        `**Origin:**\n<t:1700496000:f> [Zenith Hall <t:1700496000:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1700496000:T>, Wave 2: <t:1700524800:T>, Wave 3: <t:1700553600:T>\n\n` +
-        `**Drake:**\n<t:1700582400:f> [Apex Hall <t:1700582400:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1700582400:T>, Wave 2: <t:1700611200:T>, Wave 3: <t:1700640000:T>\n\n` +
-        `**Argo/Other:**\n<t:1700668800:f> [Zenith Hall <t:1700668800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1700668800:T>, Wave 2: <t:1700697600:T>, Wave 3: <t:1700726400:T>\n\n` +
-        `**Anvil Aerospace:**\n<t:1700755200:f> [Apex Hall <t:1700755200:R>]\n\n` +
-        `**Misc/Mirai:**\n<t:1700841600:f> [Zenith Hall <t:1700841600:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1700841600:T>, Wave 2: <t:1700870400:T>, Wave 3: <t:1700899200:T>\n\n` +
-        `**RSI:**\n<t:1700928000:f> [Apex Hall <t:1700928000:R>]\n\n` +
-        `**Best In Show:**\n<t:1701014400:f> [Zenith Hall <t:1701014400:R>]\n\n` +
-        `**IAE 2953 Finale:**\n<t:1701100800:f> [Zenith Hall <t:1701100800:R>]\nEnd of IAE 2953: <t:1701374400:f> [Zenith Hall <t:1701374400:R>]`;
+    const discordSchedule = `IAE 2954 Official Schedule:\n\n` +
+        `**Crusader and Tumbril:**\n<t:1732291200:f> [Apex Hall <t:1732291200:R>]\n\n` +
+        `**Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris-K\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n` +
+        `**Gatac/Alien Manufacturers:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\n\n` +
+        `**Origin:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732550400:T>, Wave 2: <t:1732579200:T>, Wave 3: <t:1732608000:T>\n\n` +
+        `**RSI:**\n<t:1732636800:f> [Apex Hall <t:1732636800:R>]\nLimited Ship Sales: Constellation Phoenix\nWave 1: <t:1732636800:T>, Wave 2: <t:1732665600:T>, Wave 3: <t:1732694400:T>\n\n` +
+        `**ARGO, CNOU, Greycat, Kruger:**\n<t:1732723200:f> [Zenith Hall <t:1732723200:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1732723200:T>, Wave 2: <t:1732752000:T>, Wave 3: <t:1732780800:T>\n\n` +
+        `**Drake:**\n<t:1732809600:f> [Apex Hall <t:1732809600:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1732809600:T>, Wave 2: <t:1732838400:T>, Wave 3: <t:1732867200:T>\n\n` +
+        `**MISC, MIRAI:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
+        `**Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n` +
+        `**Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n` +
+        `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733366400:f> [Zenith Hall <t:1733366400:R>]`;
 
     navigator.clipboard.writeText(discordSchedule).then(() => {
         document.getElementById('copyToDiscordBtn').innerText = 'Copied schedule in Discord format';
