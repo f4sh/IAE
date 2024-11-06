@@ -6,10 +6,10 @@ const schedule = [
     },
     {
         name: "Aegis Dynamics",
-        timestamp: 1732377600,
+        timestamp: 1730822400,
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1732377600, 1732406400, 1732435200]
+        waveTimestamps: [1730822400, 1730851200, 1730793600]
     },
     {
         name: "Gatac/Alien Manufacturers",
