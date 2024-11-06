@@ -1,15 +1,15 @@
 const schedule = [
     {
         name: "Crusader and Tumbril",
-        timestamp: 1730559600,
+        timestamp: 1732291200,
         location: "Apex Hall"
     },
     {
         name: "Aegis Dynamics",
-        timestamp: 1730822400,
+        timestamp: 1732377600,
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1730822400, 1730851200, 1730793600]
+        waveTimestamps: [1732377600, 1732406400, 1732435200]
     },
     {
         name: "Gatac/Alien Manufacturers",
