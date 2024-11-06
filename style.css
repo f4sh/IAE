@@ -2,12 +2,14 @@
 
 body,
 html {
-    background-color: #343293;
+    background: url('img/2954_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #fafafa;
     font-family: 'Exo', sans-serif;
     margin: 0;
     padding: 0;
     text-align: center;
+    height: 100%;
 }
 
 .button-container {
