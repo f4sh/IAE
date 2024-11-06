@@ -1,6 +1,6 @@
-# IAE 2953 Event Schedule
+# IAE 2954 Event Schedule
 
-Intergalactic Aerospace Expo (IAE) 2953, the biggest ship show in the ‘verse. This interactive web app showcases a comprehensive schedule, countdown timers, and Discord-compatible schedule ready to copy for the Star Citizen IAE 2953 event, occurring from November 17 to 30, 2023. Stay updated with key event timelines and details effortlessly.
+Intergalactic Aerospace Expo (IAE) 2954, the biggest ship show in the ‘verse. This interactive web app showcases a comprehensive schedule, countdown timers, and Discord-compatible schedule ready to copy for the Star Citizen IAE 2954 event, occurring from November 22 to December 5, 2023. Stay updated with key event timelines and details effortlessly.
 
 ## Features
 
