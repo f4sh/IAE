@@ -135,6 +135,18 @@ function updateSchedule() {
         }
     }
 
+    const shipLinks = {
+        'Idris-P': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=idris&sort=weight&direction=desc',
+        'Javelin': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=javelin&sort=weight&direction=desc',
+        'Idris K Kit': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=Idris+P+After+Market+Kit&sort=weight&direction=desc',
+        '890 Jump': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=890&sort=weight&direction=desc',
+        'Constellation Phoenix': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=phoenix&sort=weight&direction=desc',
+        'Kraken': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken&sort=weight&direction=desc',
+        'Kraken Privateer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+privateer&sort=weight&direction=desc',
+        'Hull E': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=hull+e&sort=weight&direction=desc',
+        'Consolidated Outland Pioneer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=pioneer&sort=weight&direction=desc'
+    };
+
     const selectedTimeZone = document.getElementById('timezone-selector').value;
     const scheduleContainer = document.getElementById('schedule');
     scheduleContainer.innerHTML = '';
@@ -172,7 +184,19 @@ function updateSchedule() {
         }
 
         if (event.limitedSales) {
-            eventHTML += `<div class="limited-sales">Limited Ship Sales: ${event.limitedSales}</div>`;
+            let limitedSalesLinks = '';
+            const sales = event.limitedSales.split(', ');
+            sales.forEach(sale => {
+                const link = shipLinks[sale.trim()];
+                if (link) {
+                    limitedSalesLinks += `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, `;
+                } else {
+                    limitedSalesLinks += `${sale}, `;
+                }
+            });
+            limitedSalesLinks = limitedSalesLinks.slice(0, -2);
+
+            eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
             let lastWaveStatus = '';
             event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
                 const nextWaveTimestamp = (waveIndex < event.waveTimestamps.length - 1) ?
