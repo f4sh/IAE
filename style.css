@@ -72,7 +72,7 @@ h2 {
 }
 
 .event {
-    border: 2px solid #58a6f1;
+    border: 1px solid #2e3a86;
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 15px;
@@ -129,13 +129,13 @@ footer {
 }
 
 .limited-sales {
-    color: #c6ab6c;
+    color: #6db0ff;
     font-weight: 700;
     margin: 2em 0 0 0;
 }
 
 .limited-sales-link {
-    color: #c6ab6c;
+    color: #6db0ff;
     text-decoration: none;
 }
 
@@ -184,7 +184,7 @@ footer {
 }
 
 #timezone-selector {
-    background: #21004d;
+    background: #272672;
     color: #fafafa;
     border-radius: 8px;
     padding: 10px 20px;
