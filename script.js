@@ -142,6 +142,7 @@ function updateSchedule() {
         '890 Jump': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=890&sort=weight&direction=desc',
         'Constellation Phoenix': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=phoenix&sort=weight&direction=desc',
         'Kraken': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken&sort=weight&direction=desc',
+        'Kraken Conversion Kit': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+conversion&sort=weight&direction=desc',
         'Kraken Privateer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+privateer&sort=weight&direction=desc',
         'Hull E': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=hull+e&sort=weight&direction=desc',
         'Consolidated Outland Pioneer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=pioneer&sort=weight&direction=desc'
