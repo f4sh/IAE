@@ -2,7 +2,7 @@
 
 body,
 html {
-    background-color: #373672;
+    background-color: #343293;
     color: #fafafa;
     font-family: 'Exo', sans-serif;
     margin: 0;
@@ -70,7 +70,7 @@ h2 {
 }
 
 .event {
-    border: 2px solid #2a065a;
+    border: 2px solid #58a6f1;
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 15px;
