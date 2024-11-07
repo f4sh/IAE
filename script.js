@@ -14,14 +14,14 @@ const schedule = [
     {
         name: "MISC, MIRAI",
         timestamp: 1732464000, // November 24, 4 PM GMT
-        location: "Zenith Hall",
+        location: "Apex Hall",
         limitedSales: "Hull E",
         waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
     },
     {
         name: "Gatac/Alien Manufacturers",
         timestamp: 1732550400, // November 25, 4 PM GMT
-        location: "Apex Hall"
+        location: "Zenith Hall"
     },
     {
         name: "RSI",
