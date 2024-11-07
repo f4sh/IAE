@@ -1,71 +1,71 @@
 const schedule = [
     {
         name: "Crusader and Tumbril",
-        timestamp: 1732291200,
+        timestamp: 1732291200, // November 22, 4 PM GMT
         location: "Apex Hall"
     },
     {
         name: "Aegis Dynamics",
-        timestamp: 1732377600,
+        timestamp: 1732377600, // November 23, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
         waveTimestamps: [1732377600, 1732406400, 1732435200]
     },
     {
+        name: "MISC, MIRAI",
+        timestamp: 1732464000, // November 24, 4 PM GMT
+        location: "Zenith Hall",
+        limitedSales: "Hull E",
+        waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
+    },
+    {
         name: "Gatac/Alien Manufacturers",
-        timestamp: 1732464000,
+        timestamp: 1732550400, // November 25, 4 PM GMT
         location: "Apex Hall"
     },
     {
         name: "Origin",
-        timestamp: 1732550400,
+        timestamp: 1732896000, // November 29, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "890 Jump",
-        waveTimestamps: [1732550400, 1732579200, 1732608000]
+        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
     },
     {
         name: "RSI",
-        timestamp: 1732636800,
+        timestamp: 1732636800, // November 27, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Constellation Phoenix",
         waveTimestamps: [1732636800, 1732665600, 1732694400]
     },
     {
         name: "ARGO, CNOU, Greycat, Kruger",
-        timestamp: 1732723200,
+        timestamp: 1732723200, // November 28, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Consolidated Outland Pioneer",
         waveTimestamps: [1732723200, 1732752000, 1732780800]
     },
     {
         name: "Drake",
-        timestamp: 1732809600,
+        timestamp: 1732809600, // November 29, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
         waveTimestamps: [1732809600, 1732838400, 1732867200]
     },
     {
-        name: "MISC, MIRAI",
-        timestamp: 1732896000,
-        location: "Zenith Hall",
-        limitedSales: "Hull E",
-        waveTimestamps: [1732896000, 1732924800, 1732953600]
-    },
-    {
         name: "Anvil Aerospace",
-        timestamp: 1732982400,
+        timestamp: 1732982400, // November 30, 4 PM GMT
         location: "Apex Hall"
     },
     {
         name: "Best In Show",
-        timestamp: 1733068800,
+        timestamp: 1733068800, // December 1, 4 PM GMT
         location: "Zenith Hall"
     },
     {
         name: "IAE 2954 Finale",
-        timestamp: 1733155200,
+        timestamp: 1733155200, // December 2, 4 PM GMT
         location: "Zenith Hall",
-        end: 1733366400
+        end: 1733366400 // December 5, 4 PM GMT
     }
 ];
 
