@@ -19,7 +19,7 @@ const schedule = [
         waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
     },
     {
-        name: "Gatac/Alien Manufacturers",
+        name: "Alien Manufacturers",
         timestamp: 1732550400, // November 25, 4 PM GMT
         location: "Zenith Hall"
     },
