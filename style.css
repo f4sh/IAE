@@ -1,11 +1,23 @@
 :root {
-    color-scheme: light dark;
     --text-color: #fafafa;
     --background-color: #262671;
-    --overlay-color: rgba(0, 0, 0, 0.5);
-    --button-bg: #5865F2;
-    --button-hover-bg: #4752C4;
-    --button-active-bg: #363E9A;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --overlay-color: rgba(0, 0, 0, 0.5);
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--overlay-color);
+        z-index: -1;
+    }
 }
 
 *,
