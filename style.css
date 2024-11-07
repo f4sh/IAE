@@ -103,7 +103,7 @@ h2 {
 
 #timezone-info {
     color: var(--text-color);
-    font-size: 1.1em;
+    font-size: 0.9em;
     font-weight: 900;
     margin-bottom: 10px;
     padding: 0 30px;
@@ -253,6 +253,7 @@ label[for="timezone-selector"] {
 
     #timezone-selector {
         padding: 20px;
+        margin: 20px;
         width: 30%;
     }
 
