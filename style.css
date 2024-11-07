@@ -4,7 +4,6 @@
     --button-bg: #5865F2;
     --button-hover-bg: #4752C4;
     --button-active-bg: #363E9A;
-    --overlay-color: transparent;
 }
 
 *,
@@ -35,15 +34,18 @@ body::before {
     z-index: -2;
 }
 
-.dim-overlay::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+@media (prefers-color-scheme: dark) {
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        pointer-events: none;
+    }
 }
 
 .button-container {
@@ -51,31 +53,6 @@ body::before {
     flex-direction: column;
     align-items: center;
     padding-bottom: 30px;
-}
-
-#toggleOverlayBtn {
-    background: #272672;
-    color: var(--text-color);
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-family: 'Exo', sans-serif;
-    font-size: 1em;
-    width: 220px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    text-align: center;
-}
-
-#toggleOverlayBtn:hover,
-#toggleOverlayBtn:focus {
-    border-color: #21004d;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-#toggleOverlayBtn:active {
-    background-color: #363E9A;
 }
 
 .container {
