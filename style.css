@@ -1,6 +1,10 @@
 :root {
     --text-color: #fafafa;
     --background-color: #262671;
+    --button-bg: #5865F2;
+    --button-hover-bg: #4752C4;
+    --button-active-bg: #363E9A;
+    --overlay-color: transparent;
 }
 
 *,
@@ -44,7 +48,7 @@ body::after {
 
 .button-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     padding-bottom: 30px;
 }
@@ -62,7 +66,8 @@ body::after {
     color: var(--text-color);
 }
 
-#copyToDiscordBtn {
+#copyToDiscordBtn,
+#toggleOverlayBtn {
     display: block;
     background-color: var(--button-bg);
     color: white;
@@ -72,17 +77,22 @@ body::after {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 10px;
+    width: 220px;
 }
 
-#copyToDiscordBtn:hover {
+#copyToDiscordBtn:hover,
+#toggleOverlayBtn:hover {
     background-color: var(--button-hover-bg);
 }
 
-#copyToDiscordBtn:active {
+#copyToDiscordBtn:active,
+#toggleOverlayBtn:active {
     background-color: var(--button-active-bg);
 }
 
-#copyToDiscordBtn:focus {
+#copyToDiscordBtn:focus,
+#toggleOverlayBtn:focus {
     outline: none;
 }
 
