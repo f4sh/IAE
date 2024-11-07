@@ -252,6 +252,7 @@ label[for="timezone-selector"] {
     }
 
     #timezone-selector {
+        padding: 20px;
         width: 30%;
     }
 
