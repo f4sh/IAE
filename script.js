@@ -24,32 +24,32 @@ const schedule = [
         location: "Apex Hall"
     },
     {
-        name: "Origin",
-        timestamp: 1732896000, // November 29, 4 PM GMT
-        location: "Zenith Hall",
-        limitedSales: "890 Jump",
-        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
-    },
-    {
         name: "RSI",
-        timestamp: 1732636800, // November 27, 4 PM GMT
+        timestamp: 1732636800, // November 26, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Constellation Phoenix",
         waveTimestamps: [1732636800, 1732665600, 1732694400]
     },
     {
         name: "ARGO, CNOU, Greycat, Kruger",
-        timestamp: 1732723200, // November 28, 4 PM GMT
+        timestamp: 1732723200, // November 27, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Consolidated Outland Pioneer",
         waveTimestamps: [1732723200, 1732752000, 1732780800]
     },
     {
         name: "Drake",
-        timestamp: 1732809600, // November 29, 4 PM GMT
+        timestamp: 1732809600, // November 28, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
         waveTimestamps: [1732809600, 1732838400, 1732867200]
+    },
+    {
+        name: "Origin",
+        timestamp: 1732896000, // November 29, 4 PM GMT
+        location: "Zenith Hall",
+        limitedSales: "890 Jump",
+        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
     },
     {
         name: "Anvil Aerospace",
