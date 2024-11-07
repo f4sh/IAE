@@ -114,7 +114,6 @@ h2 {
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 15px;
-    transition: transform 0.3s ease;
 }
 
 .event-active {
@@ -122,12 +121,6 @@ h2 {
     border: none !important;
     margin-bottom: 10px;
     padding: 55px;
-    transition: transform 0.3s ease;
-}
-
-.event:hover,
-.event-active:hover {
-    transform: scale(1.02);
 }
 
 .event-name {
