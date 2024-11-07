@@ -260,3 +260,7 @@ function copyToDiscord() {
         console.error('Failed to copy text: ', err);
     });
 }
+
+function toggleOverlay() {
+    document.body.classList.toggle('dim-overlay');
+}
