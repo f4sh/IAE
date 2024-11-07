@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap');
+:root {
+    color-scheme: light dark;
+    --text-color: #fafafa;
+    --background-color: #262671;
+    --overlay-color: rgba(0, 0, 0, 0.5);
+    --button-bg: #5865F2;
+    --button-hover-bg: #4752C4;
+    --button-active-bg: #363E9A;
+}
 
 *,
 *::before,
@@ -6,16 +14,37 @@
     box-sizing: border-box;
 }
 
-html {
-    background: url('img/2954_bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #fafafa;
-    font-family: 'Exo', sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    text-align: center;
     height: 100%;
     overflow-x: hidden;
+    font-family: 'Exo', sans-serif;
+    text-align: center;
+    color: var(--text-color);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('img/2954_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-color);
+    z-index: -1;
 }
 
 .button-container {
@@ -26,7 +55,6 @@ html {
 }
 
 .container {
-    background-size: cover;
     margin: 0 auto;
     max-width: 1200px;
     padding: 40px;
@@ -36,11 +64,12 @@ html {
     font-size: 0.7em;
     font-weight: 400;
     padding: 30px 20px 0px 20px;
+    color: var(--text-color);
 }
 
 #copyToDiscordBtn {
     display: block;
-    background-color: #5865F2;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -51,11 +80,11 @@ html {
 }
 
 #copyToDiscordBtn:hover {
-    background-color: #4752C4;
+    background-color: var(--button-hover-bg);
 }
 
 #copyToDiscordBtn:active {
-    background-color: #363E9A;
+    background-color: var(--button-active-bg);
 }
 
 #copyToDiscordBtn:focus {
@@ -70,7 +99,7 @@ h2 {
 }
 
 #timezone-info {
-    color: #fafafa;
+    color: var(--text-color);
     font-size: 1.1em;
     font-weight: 900;
     margin-bottom: 10px;
@@ -115,12 +144,12 @@ h2 {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     opacity: 0.9;
-    left: 0;
     text-align: center;
     padding: 0 0 30px 0;
     width: 100%;
+    color: var(--text-color);
 }
 
 .happening-now {
@@ -149,10 +178,7 @@ footer {
     text-decoration: underline;
 }
 
-.finished-event .limited-sales {
-    display: none;
-}
-
+.finished-event .limited-sales,
 .finished-event .wave {
     display: none;
 }
@@ -191,7 +217,7 @@ footer {
 
 #timezone-selector {
     background: #272672;
-    color: #fafafa;
+    color: var(--text-color);
     border-radius: 8px;
     padding: 10px 20px;
     font-family: 'Exo', sans-serif;
@@ -209,7 +235,7 @@ footer {
 }
 
 label[for="timezone-selector"] {
-    color: #fafafa;
+    color: var(--text-color);
     font-size: 1em;
     font-weight: 700;
     margin-right: 10px;
@@ -236,5 +262,4 @@ label[for="timezone-selector"] {
     .location {
         font-size: 0.9em;
     }
-
 }
