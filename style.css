@@ -79,7 +79,7 @@ body::before {
     cursor: pointer;
     transition: background-color 0.2s;
     margin-top: 10px;
-    width: 220px;
+    width: 325px;
 }
 
 #copyToDiscordBtn:hover {
