@@ -170,70 +170,55 @@ function updateSchedule() {
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
 
-        let eventHTML = '';
-
-        if (eventTimeLeft.isHappening) {
-            const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            const timeLeftText = endTime - now > 0 ? calculateTimeLeft(endTime - now) : 'Finished';
-            eventHTML = `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><span class="time-left">${timeLeftText}</span></div>`;
-        } else if (eventTimeLeft.hasPassed) {
-            eventHTML = `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /></div>`;
-        } else {
-            const diffInSeconds = event.timestamp - now;
-            if (diffInSeconds > 0 && diffInSeconds <= 86400) {
-                eventHTML = `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                             <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
-            } else {
-                eventHTML = `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                             <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
-            }
-        }
-
-        if (event.limitedSales) {
-            let limitedSalesLinks = '';
-            const sales = event.limitedSales.split(', ');
-            sales.forEach(sale => {
-                const link = shipLinks[sale.trim()];
-                limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
-            });
-            limitedSalesLinks = limitedSalesLinks.slice(0, -2);
-
-            eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
-            let lastWaveStatus = '';
-            event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
-                const nextWaveTimestamp = (waveIndex < event.waveTimestamps.length - 1) ?
-                    event.waveTimestamps[waveIndex + 1] :
-                    (nextEventTimestamp ? nextEventTimestamp : Number.MAX_SAFE_INTEGER);
-                const waveTimeLeft = getTimeLeft(waveTimestamp, nextWaveTimestamp);
-
-                let waveStatus;
-                if (waveTimeLeft.isHappening) {
-                    waveStatus = `Wave ${waveIndex + 1}: <span class="wave-happening-now">Started. Good Luck!</span>`;
-                    if (lastWaveStatus === 'Happening') {
-                        eventHTML = eventHTML.replace(`Wave ${waveIndex}: <span class="wave-happening-now">Started. Good Luck!</span>`, `Wave ${waveIndex}: <span class="finished-wave">Passed</span>`);
-                    }
-                    lastWaveStatus = 'Happening';
-                } else if (waveTimeLeft.hasPassed) {
-                    waveStatus = `Wave ${waveIndex + 1}: <span class="finished-wave">Passed</span>`;
-                    lastWaveStatus = 'Passed';
-                } else {
-                    waveStatus = `Wave ${waveIndex + 1}: ${waveTimeLeft.text}`;
-                    lastWaveStatus = 'Upcoming';
-                }
-
-                eventHTML += `<div class="wave">${waveStatus}</div>`;
-            });
-        }
-
         if (!eventElement) {
             eventElement = document.createElement('div');
             eventElement.id = eventId;
             eventElement.classList.add('event');
+
+            const imgElement = document.createElement('img');
+            imgElement.src = event.image;
+            imgElement.alt = event.name;
+            imgElement.classList.add('event-logo');
+            eventElement.appendChild(imgElement);
+
+            const titleElement = document.createElement('div');
+            titleElement.classList.add('event-title');
+            titleElement.textContent = `${event.name} - ${event.location}`;
+            eventElement.appendChild(titleElement);
+
+            const timeLeftElement = document.createElement('div');
+            timeLeftElement.classList.add('time-left');
+            timeLeftElement.id = `time-left-${index}`;
+            eventElement.appendChild(timeLeftElement);
+
+            if (event.limitedSales) {
+                const salesElement = document.createElement('div');
+                salesElement.classList.add('limited-sales');
+                const salesText = event.limitedSales.split(', ').map(sale => {
+                    const link = shipLinks[sale.trim()];
+                    return link ? `<a href="${link}" target="_blank">${sale}</a>` : sale;
+                }).join(', ');
+                salesElement.innerHTML = `Limited Ship Sales: ${salesText}`;
+                eventElement.appendChild(salesElement);
+            }
+
             scheduleContainer.appendChild(eventElement);
         }
 
-        if (eventElement.innerHTML !== eventHTML) {
-            eventElement.innerHTML = eventHTML;
+        const timeLeftElement = document.getElementById(`time-left-${index}`);
+        let timeLeftText;
+
+        if (eventTimeLeft.isHappening) {
+            const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
+            timeLeftText = endTime - now > 0 ? `Ends in ${calculateTimeLeft(endTime - now)}` : 'Finished';
+        } else if (eventTimeLeft.hasPassed) {
+            timeLeftText = 'Event has ended';
+        } else {
+            timeLeftText = `Starts in ${eventTimeLeft.text}`;
+        }
+
+        if (timeLeftElement.textContent !== timeLeftText) {
+            timeLeftElement.textContent = timeLeftText;
         }
     });
 }
