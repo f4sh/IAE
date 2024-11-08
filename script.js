@@ -167,26 +167,46 @@ function updateSchedule() {
     schedule.forEach((event, index) => {
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
+        
+        let eventContainer = document.getElementById(`event-${index}`);
+        if (!eventContainer) {
+            eventContainer = document.createElement('div');
+            eventContainer.className = `event${eventTimeLeft.hasPassed ? ' finished-event' : ''}`;
+            eventContainer.id = `event-${index}`;
+            
+            const eventLogo = document.createElement('div');
+            eventLogo.className = 'event-logo';
+            eventLogo.innerHTML = `<img src="${event.image}" alt="${event.name}" />`;
+            
+            const eventTitle = document.createElement('div');
+            eventTitle.className = 'event-title';
+            eventTitle.textContent = event.name;
+            
+            eventLogo.appendChild(eventTitle);
+            eventContainer.appendChild(eventLogo);
+            
+            scheduleContainer.appendChild(eventContainer);
+        } else {
+            eventContainer.className = `event${eventTimeLeft.hasPassed ? ' finished-event' : (eventTimeLeft.isHappening ? ' event-active' : '')}`;
+        }
 
-        let eventHTML = `<div class="event${eventTimeLeft.hasPassed ? ' finished-event' : ''}">`;
+        let eventHTML = '';
 
         if (eventTimeLeft.isHappening) {
-            eventHTML = `<div class="event event-active">`;
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
             const timeLeftToEnd = endTime - now;
-
             let timeLeftText = timeLeftToEnd > 0 ? calculateTimeLeft(timeLeftToEnd) : 'Finished';
-            eventHTML += `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div><span class="time-left">${timeLeftText}</span></div>`;
+            eventHTML += `<div class="time-left">${timeLeftText}</div><div class="location">${event.location} (Happening Now)</div>`;
         } else if (eventTimeLeft.hasPassed) {
-            eventHTML += `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>`;
+            eventHTML += `<div class="time-left">Event has passed</div><div class="location">${event.location}</div>`;
         } else {
             const diffInSeconds = event.timestamp - now;
             if (diffInSeconds > 0 && diffInSeconds <= 86400) {
-                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>
-                              <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML += `<div class="time-left">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)}</div>
+                              <div class="location">${event.location}</div>`;
             } else {
-                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>
-                              <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML += `<div class="time-left">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)}</div>
+                              <div class="location">${event.location}</div>`;
             }
         }
 
@@ -226,8 +246,10 @@ function updateSchedule() {
             });
         }
 
-        eventHTML += `</div>`;
-        scheduleContainer.innerHTML += eventHTML;
+        const dynamicContent = document.createElement('div');
+        dynamicContent.className = 'dynamic-content';
+        dynamicContent.innerHTML = eventHTML;
+        eventContainer.appendChild(dynamicContent);
     });
 }
 
