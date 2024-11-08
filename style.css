@@ -116,10 +116,10 @@ h2 {
 }
 
 .event-logo img {
-    width: 329px;
+    max-width: 100%;
     height: auto;
     display: block;
-    margin-bottom: 5px;
+    margin: 0 auto;
     padding: 0px 10px 10px 10px;
 }
 
