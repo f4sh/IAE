@@ -115,6 +115,14 @@ h2 {
     padding: 15px;
 }
 
+.event-logo img {
+    width: 329px;
+    height: auto;
+    display: block;
+    margin-bottom: 5px;
+    padding: 0px 10px 10px 10px;
+}
+
 .event-active {
     background: linear-gradient(to right, rgba(35, 52, 144, 0.5), rgba(38, 38, 113, 0.5), rgba(35, 52, 144, 0.5));
     border: none !important;
