@@ -119,21 +119,6 @@ function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
     return { text: timeLeft, isHappening: isHappening, hasPassed: hasPassed };
 }
 
-function calculateTimeLeft(seconds) {
-    const days = Math.floor(seconds / (3600 * 24));
-    const hours = Math.floor((seconds % (3600 * 24)) / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secondsLeft = Math.floor(seconds % 60);
-
-    let timeLeftText;
-    if (days > 0) {
-        timeLeftText = `${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
-    } else {
-        timeLeftText = `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s`;
-    }
-    return timeLeftText;
-}
-
 function updateSchedule() {
     const now = new Date().getTime() / 1000;
 
@@ -141,9 +126,23 @@ function updateSchedule() {
         if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
             return 'Started. Good Luck!';
         } else if (now < waveTimestamp) {
-            return calculateTimeLeft(waveTimestamp - now);
+            const timeLeft = waveTimestamp - now;
+            return calculateTimeLeft(timeLeft, timeLeft < 86400);
         } else {
             return 'Passed';
+        }
+    }
+
+    function calculateTimeLeft(seconds, showSeconds = true) {
+        const days = Math.floor(seconds / (3600 * 24));
+        const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secondsLeft = Math.floor(seconds % 60);
+        if (days > 0) return `${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
+        if (showSeconds || seconds < 86400) {
+            return `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s`;
+        } else {
+            return `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
         }
     }
 
@@ -211,7 +210,8 @@ function updateSchedule() {
         } else if (eventTimeLeft.hasPassed) {
             timeLeftText = 'Event has ended';
         } else {
-            timeLeftText = `Starts in ${eventTimeLeft.text}`;
+            const showSeconds = event.timestamp - now < 86400;
+            timeLeftText = `Starts in ${calculateTimeLeft(event.timestamp - now, showSeconds)}`;
         }
 
         if (timeLeftElement.textContent !== timeLeftText) {
