@@ -175,53 +175,75 @@ function updateSchedule() {
             eventElement.id = eventId;
             eventElement.classList.add('event');
 
-            const imgElement = document.createElement('img');
-            imgElement.src = event.image;
-            imgElement.alt = event.name;
-            imgElement.classList.add('event-logo');
-            eventElement.appendChild(imgElement);
+            let eventHTML = `
+                <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                <div class="location">${event.name} - ${event.location}</div>
+            `;
 
-            const titleElement = document.createElement('div');
-            titleElement.classList.add('event-title');
-            titleElement.textContent = `${event.name} - ${event.location}`;
-            eventElement.appendChild(titleElement);
+            if (event.limitedSales) {
+                let limitedSalesLinks = '';
+                const sales = event.limitedSales.split(', ');
+                sales.forEach(sale => {
+                    const link = shipLinks[sale.trim()];
+                    limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
+                });
+                limitedSalesLinks = limitedSalesLinks.slice(0, -2);
+                eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
+            }
+
+            if (event.waveTimestamps) {
+                event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
+                    eventHTML += `<div class="wave" id="${eventId}-wave-${waveIndex}"></div>`;
+                });
+            }
+
+            eventElement.innerHTML = eventHTML;
 
             const timeLeftElement = document.createElement('div');
             timeLeftElement.classList.add('time-left');
-            timeLeftElement.id = `time-left-${index}`;
+            timeLeftElement.id = `${eventId}-time-left`;
             eventElement.appendChild(timeLeftElement);
-
-            if (event.limitedSales) {
-                const salesElement = document.createElement('div');
-                salesElement.classList.add('limited-sales');
-                const salesText = event.limitedSales.split(', ').map(sale => {
-                    const link = shipLinks[sale.trim()];
-                    return link ? `<a href="${link}" target="_blank">${sale}</a>` : sale;
-                }).join(', ');
-                salesElement.innerHTML = `Limited Ship Sales: ${salesText}`;
-                eventElement.appendChild(salesElement);
-            }
 
             scheduleContainer.appendChild(eventElement);
         }
 
-        const timeLeftElement = document.getElementById(`time-left-${index}`);
-        let timeLeftText;
-
+        const timeLeftElement = document.getElementById(`${eventId}-time-left`);
         if (eventTimeLeft.isHappening) {
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            timeLeftText = endTime - now > 0 ? `Ends in ${calculateTimeLeft(endTime - now)}` : 'Finished';
+            const timeLeftText = endTime - now > 0 ? calculateTimeLeft(endTime - now) : 'Finished';
+            timeLeftElement.textContent = `Ends in ${timeLeftText}`;
         } else if (eventTimeLeft.hasPassed) {
-            timeLeftText = 'Event has ended';
+            timeLeftElement.textContent = 'Event has ended';
         } else {
-            timeLeftText = `Starts in ${eventTimeLeft.text}`;
+            timeLeftElement.textContent = `Starts in ${eventTimeLeft.text}`;
         }
 
-        if (timeLeftElement.textContent !== timeLeftText) {
-            timeLeftElement.textContent = timeLeftText;
+        if (event.waveTimestamps) {
+            event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
+                const waveElement = document.getElementById(`${eventId}-wave-${waveIndex}`);
+                const nextWaveTimestamp = (waveIndex < event.waveTimestamps.length - 1) ?
+                    event.waveTimestamps[waveIndex + 1] :
+                    (nextEventTimestamp ? nextEventTimestamp : Number.MAX_SAFE_INTEGER);
+                const waveStatus = getWaveStatus(waveTimestamp, nextWaveTimestamp);
+
+                if (waveElement.textContent !== waveStatus) {
+                    waveElement.textContent = `Wave ${waveIndex + 1}: ${waveStatus}`;
+                }
+            });
         }
     });
 }
+
+window.onload = () => {
+    populateTimeZones();
+    updateSchedule();
+    setInterval(updateSchedule, 1000);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'copyToDiscord') {
+        copyToDiscord();
+    }
+};
 
 window.onload = () => {
     populateTimeZones();
