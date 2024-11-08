@@ -60,6 +60,10 @@ body::before {
     padding: 40px;
 }
 
+img#schedule-heading {
+    max-width: 100%;
+}
+
 .disclaimer {
     font-size: 0.7em;
     font-weight: 400;
