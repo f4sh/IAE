@@ -2,82 +2,70 @@ const schedule = [
     {
         name: "Crusader and Tumbril",
         timestamp: 1732291200, // November 22, 4 PM GMT
-        location: "Apex Hall",
-        image: "img/2954_crusader.png"
+        location: "Apex Hall"
     },
     {
         name: "Aegis Dynamics",
         timestamp: 1732377600, // November 23, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1732377600, 1732406400, 1732435200],
-        image: "img/2954_aegis.png"
+        waveTimestamps: [1732377600, 1732406400, 1732435200]
     },
     {
         name: "MISC, MIRAI",
         timestamp: 1732464000, // November 24, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Hull E",
-        waveTimestamps: [1732464000, 1732492800, 1732521600],
-        image: "img/2954_mirai.png"
+        waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
     },
     {
         name: "Alien Manufacturers",
         timestamp: 1732550400, // November 25, 4 PM GMT
-        location: "Zenith Hall",
-        image: "img/2954_alien.png"
+        location: "Zenith Hall"
     },
     {
         name: "RSI",
         timestamp: 1732636800, // November 26, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Constellation Phoenix",
-        waveTimestamps: [1732636800, 1732665600, 1732694400],
-        image: "img/2954_rsi.png"
+        waveTimestamps: [1732636800, 1732665600, 1732694400]
     },
     {
         name: "ARGO, CNOU, Greycat, Kruger",
         timestamp: 1732723200, // November 27, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Consolidated Outland Pioneer",
-        waveTimestamps: [1732723200, 1732752000, 1732780800],
-        image: "img/2954_cnou.png"
-        
+        waveTimestamps: [1732723200, 1732752000, 1732780800]
     },
     {
         name: "Drake",
         timestamp: 1732809600, // November 28, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
-        waveTimestamps: [1732809600, 1732838400, 1732867200],
-        image: "img/2954_drake.png"
+        waveTimestamps: [1732809600, 1732838400, 1732867200]
     },
     {
         name: "Origin",
         timestamp: 1732896000, // November 29, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "890 Jump",
-        waveTimestamps: [1732896000, 1732924800, 1732953600],
-        image: "img/2954_origin.png"
+        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
     },
     {
         name: "Anvil Aerospace",
         timestamp: 1732982400, // November 30, 4 PM GMT
-        location: "Apex Hall",
-        image: "img/2954_anvil.png"
+        location: "Apex Hall"
     },
     {
         name: "Best In Show",
         timestamp: 1733068800, // December 1, 4 PM GMT
-        location: "Zenith Hall",
-        image: "img/2954_bis.png"
+        location: "Zenith Hall"
     },
     {
         name: "IAE 2954 Finale",
         timestamp: 1733155200, // December 2, 4 PM GMT
         location: "Zenith Hall",
-        end: 1733366400, // December 5, 4 PM GMT
-        image: "img/2954_finale.png"
+        end: 1733366400 // December 5, 4 PM GMT
     }
 ];
 
@@ -91,7 +79,7 @@ function populateTimeZones() {
         selector.appendChild(option);
     });
     selector.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    document.getElementById('timezone-info').textContent = Your timezone is ${selector.value} and the schedule is based on that.;
+    document.getElementById('timezone-info').textContent = `Your timezone is ${selector.value} and the schedule is based on that.`;
 }
 
 function convertTimestampToLocaleString(timestamp, timeZone) {
@@ -127,9 +115,9 @@ function calculateTimeLeft(seconds) {
 
     let timeLeftText;
     if (days > 0) {
-        timeLeftText = ${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m;
+        timeLeftText = `${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
     } else {
-        timeLeftText = ${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s;
+        timeLeftText = `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s`;
     }
     return timeLeftText;
 }
@@ -168,25 +156,31 @@ function updateSchedule() {
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
 
-        let eventHTML = <div class="event${eventTimeLeft.hasPassed ? ' finished-event' : ''}">;
+        let eventHTML = `<div class="event${eventTimeLeft.hasPassed ? ' finished-event' : ''}">`;
 
         if (eventTimeLeft.isHappening) {
-            eventHTML = <div class="event event-active">;
+            eventHTML = `<div class="event event-active">`;
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            const timeLeftToEnd = endTime - now;
+            const timeLeftToEnd = endTime - (new Date().getTime() / 1000);
 
-            let timeLeftText = timeLeftToEnd > 0 ? calculateTimeLeft(timeLeftToEnd) : 'Finished';
-            eventHTML += <div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><span class="time-left">${timeLeftText}</span></div>;
-        } else if (eventTimeLeft.hasPassed) {
-            eventHTML += <div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /></div>;
-        } else {
-            const diffInSeconds = event.timestamp - now;
-            if (diffInSeconds > 0 && diffInSeconds <= 86400) {
-                eventHTML += <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                              <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>;
+            let timeLeftText;
+            if (timeLeftToEnd > 0) {
+                timeLeftText = calculateTimeLeft(timeLeftToEnd);
             } else {
-                eventHTML += <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                              <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>;
+                timeLeftText = 'Finished';
+            }
+
+            eventHTML += `<div class="event-name happening-now">${event.name} - Happening Now in ${event.location}<span class="time-left">${timeLeftText}</span></div>`;
+        } else if (eventTimeLeft.hasPassed) {
+            eventHTML += `<div class="event-name finished">${event.name} - Finished</div>`;
+        } else {
+            const diffInSeconds = event.timestamp - (new Date().getTime() / 1000);
+            if (diffInSeconds > 0 && diffInSeconds <= 86400) {
+                eventHTML += `<div class="event-name">${event.name}</div>
+                          <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+            } else {
+                eventHTML += `<div class="event-name">${event.name}</div>
+                          <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
             }
         }
 
@@ -195,11 +189,15 @@ function updateSchedule() {
             const sales = event.limitedSales.split(', ');
             sales.forEach(sale => {
                 const link = shipLinks[sale.trim()];
-                limitedSalesLinks += link ? <a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>,  : ${sale}, ;
+                if (link) {
+                    limitedSalesLinks += `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, `;
+                } else {
+                    limitedSalesLinks += `${sale}, `;
+                }
             });
             limitedSalesLinks = limitedSalesLinks.slice(0, -2);
 
-            eventHTML += <div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>;
+            eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
             let lastWaveStatus = '';
             event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
                 const nextWaveTimestamp = (waveIndex < event.waveTimestamps.length - 1) ?
@@ -209,24 +207,24 @@ function updateSchedule() {
 
                 let waveStatus;
                 if (waveTimeLeft.isHappening) {
-                    waveStatus = Wave ${waveIndex + 1}: <span class="wave-happening-now">Started. Good Luck!</span>;
+                    waveStatus = `Wave ${waveIndex + 1}: <span class="wave-happening-now">Started. Good Luck!</span>`;
                     if (lastWaveStatus === 'Happening') {
-                        eventHTML = eventHTML.replace(Wave ${waveIndex}: <span class="wave-happening-now">Started. Good Luck!</span>, Wave ${waveIndex}: <span class="finished-wave">Passed</span>);
+                        eventHTML = eventHTML.replace(`Wave ${waveIndex}: <span class="wave-happening-now">Started. Good Luck!</span>`, `Wave ${waveIndex}: <span class="finished-wave">Passed</span>`);
                     }
                     lastWaveStatus = 'Happening';
                 } else if (waveTimeLeft.hasPassed) {
-                    waveStatus = Wave ${waveIndex + 1}: <span class="finished-wave">Passed</span>;
+                    waveStatus = `Wave ${waveIndex + 1}: <span class="finished-wave">Passed</span>`;
                     lastWaveStatus = 'Passed';
                 } else {
-                    waveStatus = Wave ${waveIndex + 1}: ${waveTimeLeft.text};
+                    waveStatus = `Wave ${waveIndex + 1}: ${waveTimeLeft.text}`;
                     lastWaveStatus = 'Upcoming';
                 }
 
-                eventHTML += <div class="wave">${waveStatus}</div>;
+                eventHTML += `<div class="wave">${waveStatus}</div>`;
             });
         }
 
-        eventHTML += </div>;
+        eventHTML += `</div>`;
         scheduleContainer.innerHTML += eventHTML;
     });
 }
@@ -243,18 +241,18 @@ window.onload = () => {
 };
 
 function copyToDiscord() {
-    const discordSchedule = IAE 2954 Official Schedule:\n\n +
-        **Crusader and Tumbril:**\n<t:1732291200:f> [Apex Hall <t:1732291200:R>]\n\n +
-        **Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris-K\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n +
-        **Gatac/Alien Manufacturers:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\n\n +
-        **Origin:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732550400:T>, Wave 2: <t:1732579200:T>, Wave 3: <t:1732608000:T>\n\n +
-        **RSI:**\n<t:1732636800:f> [Apex Hall <t:1732636800:R>]\nLimited Ship Sales: Constellation Phoenix\nWave 1: <t:1732636800:T>, Wave 2: <t:1732665600:T>, Wave 3: <t:1732694400:T>\n\n +
-        **ARGO, CNOU, Greycat, Kruger:**\n<t:1732723200:f> [Zenith Hall <t:1732723200:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1732723200:T>, Wave 2: <t:1732752000:T>, Wave 3: <t:1732780800:T>\n\n +
-        **Drake:**\n<t:1732809600:f> [Apex Hall <t:1732809600:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1732809600:T>, Wave 2: <t:1732838400:T>, Wave 3: <t:1732867200:T>\n\n +
-        **MISC, MIRAI:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n +
-        **Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n +
-        **Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n +
-        **IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733366400:f> [Zenith Hall <t:1733366400:R>];
+    const discordSchedule = `IAE 2954 Official Schedule:\n\n` +
+        `**Crusader and Tumbril:**\n<t:1732291200:f> [Apex Hall <t:1732291200:R>]\n\n` +
+        `**Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris-K\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n` +
+        `**Gatac/Alien Manufacturers:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\n\n` +
+        `**Origin:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732550400:T>, Wave 2: <t:1732579200:T>, Wave 3: <t:1732608000:T>\n\n` +
+        `**RSI:**\n<t:1732636800:f> [Apex Hall <t:1732636800:R>]\nLimited Ship Sales: Constellation Phoenix\nWave 1: <t:1732636800:T>, Wave 2: <t:1732665600:T>, Wave 3: <t:1732694400:T>\n\n` +
+        `**ARGO, CNOU, Greycat, Kruger:**\n<t:1732723200:f> [Zenith Hall <t:1732723200:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1732723200:T>, Wave 2: <t:1732752000:T>, Wave 3: <t:1732780800:T>\n\n` +
+        `**Drake:**\n<t:1732809600:f> [Apex Hall <t:1732809600:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1732809600:T>, Wave 2: <t:1732838400:T>, Wave 3: <t:1732867200:T>\n\n` +
+        `**MISC, MIRAI:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
+        `**Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n` +
+        `**Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n` +
+        `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733366400:f> [Zenith Hall <t:1733366400:R>]`;
 
     navigator.clipboard.writeText(discordSchedule).then(() => {
         document.getElementById('copyToDiscordBtn').innerText = 'Copied schedule in Discord format';
