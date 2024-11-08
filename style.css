@@ -42,7 +42,6 @@ body::before {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
         z-index: -1;
         pointer-events: none;
     }
@@ -110,7 +109,7 @@ h2 {
 }
 
 .event {
-    border: 1px solid #2e3a86;
+    background-color: rgba(36, 16, 78, 0.8);
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 15px;
@@ -127,6 +126,7 @@ h2 {
     font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 5px;
+    padding: 10px;
     text-transform: uppercase;
 }
 
@@ -252,9 +252,9 @@ label[for="timezone-selector"] {
     }
 
     #timezone-selector {
-        padding: 20px;
+        padding: 10px;
         margin: 20px;
-        width: 30%;
+        width: 50%;
     }
 
     .location {
