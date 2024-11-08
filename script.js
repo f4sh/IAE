@@ -177,6 +177,7 @@ function updateSchedule() {
 
             let eventHTML = `
                 <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                <div class="time-left" id="${eventId}-time-left"></div>
                 <div class="location">${event.name} - ${event.location}</div>
             `;
 
@@ -198,24 +199,23 @@ function updateSchedule() {
             }
 
             eventElement.innerHTML = eventHTML;
-
-            const timeLeftElement = document.createElement('div');
-            timeLeftElement.classList.add('time-left');
-            timeLeftElement.id = `${eventId}-time-left`;
-            eventElement.appendChild(timeLeftElement);
-
             scheduleContainer.appendChild(eventElement);
         }
 
         const timeLeftElement = document.getElementById(`${eventId}-time-left`);
+        let timeLeftText;
+
         if (eventTimeLeft.isHappening) {
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            const timeLeftText = endTime - now > 0 ? calculateTimeLeft(endTime - now) : 'Finished';
-            timeLeftElement.textContent = `Ends in ${timeLeftText}`;
+            timeLeftText = endTime - now > 0 ? `Ends in ${calculateTimeLeft(endTime - now)}` : 'Finished';
         } else if (eventTimeLeft.hasPassed) {
-            timeLeftElement.textContent = 'Event has ended';
+            timeLeftText = 'Event has ended';
         } else {
-            timeLeftElement.textContent = `Starts in ${eventTimeLeft.text}`;
+            timeLeftText = `Starts in ${eventTimeLeft.text}`;
+        }
+
+        if (timeLeftElement.textContent !== timeLeftText) {
+            timeLeftElement.textContent = timeLeftText;
         }
 
         if (event.waveTimestamps) {
@@ -242,17 +242,6 @@ window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('action') === 'copyToDiscord') {
         copyToDiscord();
-    }
-};
-
-window.onload = () => {
-    populateTimeZones();
-    updateSchedule();
-    setInterval(updateSchedule, 1000);
-
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('action') === 'copyToDiscord') {
-      copyToDiscord();
     }
 };
 
