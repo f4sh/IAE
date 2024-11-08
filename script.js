@@ -243,13 +243,13 @@ window.onload = () => {
 function copyToDiscord() {
     const discordSchedule = `IAE 2954 Official Schedule:\n\n` +
         `**Crusader and Tumbril:**\n<t:1732291200:f> [Apex Hall <t:1732291200:R>]\n\n` +
-        `**Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris-K\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n` +
-        `**Gatac/Alien Manufacturers:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\n\n` +
-        `**Origin:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732550400:T>, Wave 2: <t:1732579200:T>, Wave 3: <t:1732608000:T>\n\n` +
+        `**Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n` +
+        `**MISC, MIRAI:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732464000:T>, Wave 2: <t:1732492800:T>, Wave 3: <t:1732521600:T>\n\n` +
+        `**Alien Manufacturers:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\n\n` +
         `**RSI:**\n<t:1732636800:f> [Apex Hall <t:1732636800:R>]\nLimited Ship Sales: Constellation Phoenix\nWave 1: <t:1732636800:T>, Wave 2: <t:1732665600:T>, Wave 3: <t:1732694400:T>\n\n` +
         `**ARGO, CNOU, Greycat, Kruger:**\n<t:1732723200:f> [Zenith Hall <t:1732723200:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1732723200:T>, Wave 2: <t:1732752000:T>, Wave 3: <t:1732780800:T>\n\n` +
         `**Drake:**\n<t:1732809600:f> [Apex Hall <t:1732809600:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1732809600:T>, Wave 2: <t:1732838400:T>, Wave 3: <t:1732867200:T>\n\n` +
-        `**MISC, MIRAI:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
+        `**Origin:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
         `**Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n` +
         `**Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n` +
         `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733366400:f> [Zenith Hall <t:1733366400:R>]`;
