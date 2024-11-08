@@ -162,31 +162,30 @@ function updateSchedule() {
 
     const selectedTimeZone = document.getElementById('timezone-selector').value;
     const scheduleContainer = document.getElementById('schedule');
-    scheduleContainer.innerHTML = '';
 
     schedule.forEach((event, index) => {
+        const eventId = `event-${index}`;
+        let eventElement = document.getElementById(eventId);
+
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
 
-        let eventHTML = `<div class="event${eventTimeLeft.hasPassed ? ' finished-event' : ''}">`;
+        let eventHTML = '';
 
         if (eventTimeLeft.isHappening) {
-            eventHTML = `<div class="event event-active">`;
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            const timeLeftToEnd = endTime - now;
-
-            let timeLeftText = timeLeftToEnd > 0 ? calculateTimeLeft(timeLeftToEnd) : 'Finished';
-            eventHTML += `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><span class="time-left">${timeLeftText}</span></div>`;
+            const timeLeftText = endTime - now > 0 ? calculateTimeLeft(endTime - now) : 'Finished';
+            eventHTML = `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><span class="time-left">${timeLeftText}</span></div>`;
         } else if (eventTimeLeft.hasPassed) {
-            eventHTML += `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /></div>`;
+            eventHTML = `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /></div>`;
         } else {
             const diffInSeconds = event.timestamp - now;
             if (diffInSeconds > 0 && diffInSeconds <= 86400) {
-                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                              <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML = `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                             <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
             } else {
-                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                              <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML = `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                             <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
             }
         }
 
@@ -226,8 +225,16 @@ function updateSchedule() {
             });
         }
 
-        eventHTML += `</div>`;
-        scheduleContainer.innerHTML += eventHTML;
+        if (!eventElement) {
+            eventElement = document.createElement('div');
+            eventElement.id = eventId;
+            eventElement.classList.add('event');
+            scheduleContainer.appendChild(eventElement);
+        }
+
+        if (eventElement.innerHTML !== eventHTML) {
+            eventElement.innerHTML = eventHTML;
+        }
     });
 }
 
