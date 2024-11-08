@@ -2,26 +2,30 @@ const schedule = [
     {
         name: "Crusader and Tumbril",
         timestamp: 1732291200, // November 22, 4 PM GMT
-        location: "Apex Hall"
+        location: "Apex Hall",
+        image: "img/2954_crusader.png"
     },
     {
         name: "Aegis Dynamics",
         timestamp: 1732377600, // November 23, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1732377600, 1732406400, 1732435200]
+        waveTimestamps: [1732377600, 1732406400, 1732435200],
+        image: "img/2954_aegis.png"
     },
     {
         name: "MISC, MIRAI",
         timestamp: 1732464000, // November 24, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Hull E",
-        waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
+        waveTimestamps: [1732464000, 1732492800, 1732521600],
+        image: "img/2954_alien.png"
     },
     {
         name: "Alien Manufacturers",
         timestamp: 1732550400, // November 25, 4 PM GMT
-        location: "Zenith Hall"
+        location: "Zenith Hall",
+        image: "img/2954_finale.png"
     },
     {
         name: "RSI",
@@ -35,37 +39,44 @@ const schedule = [
         timestamp: 1732723200, // November 27, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "Consolidated Outland Pioneer",
-        waveTimestamps: [1732723200, 1732752000, 1732780800]
+        waveTimestamps: [1732723200, 1732752000, 1732780800],
+        image: "img/2954_cnou.png"
+        
     },
     {
         name: "Drake",
         timestamp: 1732809600, // November 28, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
-        waveTimestamps: [1732809600, 1732838400, 1732867200]
+        waveTimestamps: [1732809600, 1732838400, 1732867200],
+        image: "img/2954_drake.png"
     },
     {
         name: "Origin",
         timestamp: 1732896000, // November 29, 4 PM GMT
         location: "Zenith Hall",
         limitedSales: "890 Jump",
-        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
+        waveTimestamps: [1732896000, 1732924800, 1732953600],
+        image: "img/2954_origin.png"
     },
     {
         name: "Anvil Aerospace",
         timestamp: 1732982400, // November 30, 4 PM GMT
-        location: "Apex Hall"
+        location: "Apex Hall",
+        image: "img/2954_anvil.png"
     },
     {
         name: "Best In Show",
         timestamp: 1733068800, // December 1, 4 PM GMT
-        location: "Zenith Hall"
+        location: "Zenith Hall",
+        image: "img/2954_bis.png"
     },
     {
         name: "IAE 2954 Finale",
         timestamp: 1733155200, // December 2, 4 PM GMT
         location: "Zenith Hall",
-        end: 1733366400 // December 5, 4 PM GMT
+        end: 1733366400, // December 5, 4 PM GMT
+        image: "img/2954_finale.png"
     }
 ];
 
@@ -161,26 +172,20 @@ function updateSchedule() {
         if (eventTimeLeft.isHappening) {
             eventHTML = `<div class="event event-active">`;
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            const timeLeftToEnd = endTime - (new Date().getTime() / 1000);
+            const timeLeftToEnd = endTime - now;
 
-            let timeLeftText;
-            if (timeLeftToEnd > 0) {
-                timeLeftText = calculateTimeLeft(timeLeftToEnd);
-            } else {
-                timeLeftText = 'Finished';
-            }
-
-            eventHTML += `<div class="event-name happening-now">${event.name} - Happening Now in ${event.location}<span class="time-left">${timeLeftText}</span></div>`;
+            let timeLeftText = timeLeftToEnd > 0 ? calculateTimeLeft(timeLeftToEnd) : 'Finished';
+            eventHTML += `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><span class="time-left">${timeLeftText}</span></div>`;
         } else if (eventTimeLeft.hasPassed) {
-            eventHTML += `<div class="event-name finished">${event.name} - Finished</div>`;
+            eventHTML += `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /></div>`;
         } else {
-            const diffInSeconds = event.timestamp - (new Date().getTime() / 1000);
+            const diffInSeconds = event.timestamp - now;
             if (diffInSeconds > 0 && diffInSeconds <= 86400) {
-                eventHTML += `<div class="event-name">${event.name}</div>
-                          <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                              <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
             } else {
-                eventHTML += `<div class="event-name">${event.name}</div>
-                          <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
+                              <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
             }
         }
 
@@ -189,11 +194,7 @@ function updateSchedule() {
             const sales = event.limitedSales.split(', ');
             sales.forEach(sale => {
                 const link = shipLinks[sale.trim()];
-                if (link) {
-                    limitedSalesLinks += `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, `;
-                } else {
-                    limitedSalesLinks += `${sale}, `;
-                }
+                limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
             });
             limitedSalesLinks = limitedSalesLinks.slice(0, -2);
 
