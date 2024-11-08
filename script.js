@@ -19,20 +19,21 @@ const schedule = [
         location: "Apex Hall",
         limitedSales: "Hull E",
         waveTimestamps: [1732464000, 1732492800, 1732521600],
-        image: "img/2954_alien.png"
+        image: "img/2954_mirai.png"
     },
     {
         name: "Alien Manufacturers",
         timestamp: 1732550400, // November 25, 4 PM GMT
         location: "Zenith Hall",
-        image: "img/2954_finale.png"
+        image: "img/2954_alien.png"
     },
     {
         name: "RSI",
         timestamp: 1732636800, // November 26, 4 PM GMT
         location: "Apex Hall",
         limitedSales: "Constellation Phoenix",
-        waveTimestamps: [1732636800, 1732665600, 1732694400]
+        waveTimestamps: [1732636800, 1732665600, 1732694400],
+        image: "img/2954_rsi.png"
     },
     {
         name: "ARGO, CNOU, Greycat, Kruger",
