@@ -136,24 +136,43 @@ function calculateTimeLeft(seconds) {
 
 function updateSchedule() {
     const now = new Date().getTime() / 1000;
+
+    function getWaveStatus(waveTimestamp, nextWaveTimestamp) {
+        if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
+            return 'Started. Good Luck!';
+        } else if (now < waveTimestamp) {
+            return 'Upcoming';
+        } else {
+            return 'Passed';
+        }
+    }
+
+    const shipLinks = {
+        'Idris-P': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=idris&sort=weight&direction=desc',
+        'Javelin': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=javelin&sort=weight&direction=desc',
+        'Idris K Kit': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=Idris+P+After+Market+Kit&sort=weight&direction=desc',
+        '890 Jump': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=890&sort=weight&direction=desc',
+        'Constellation Phoenix': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=phoenix&sort=weight&direction=desc',
+        'Kraken': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken&sort=weight&direction=desc',
+        'Kraken Conversion Kit': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+conversion&sort=weight&direction=desc',
+        'Kraken Privateer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+privateer&sort=weight&direction=desc',
+        'Hull E': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=hull+e&sort=weight&direction=desc',
+        'Consolidated Outland Pioneer': 'https://robertsspaceindustries.com/store/pledge/browse/extras/?search=pioneer&sort=weight&direction=desc'
+    };
+
     const selectedTimeZone = document.getElementById('timezone-selector').value;
+    const scheduleContainer = document.getElementById('schedule');
 
     schedule.forEach((event, index) => {
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
-
+        
         let eventElement = document.getElementById(`event-${index}`);
         
         if (!eventElement) {
             eventElement = document.createElement('div');
             eventElement.id = `event-${index}`;
-            eventElement.classList.add('event');
-
-            if (eventTimeLeft.hasPassed) {
-                eventElement.classList.add('finished-event');
-            } else if (eventTimeLeft.isHappening) {
-                eventElement.classList.add('event-active');
-            }
+            eventElement.classList.add('event', eventTimeLeft.hasPassed ? 'finished-event' : eventTimeLeft.isHappening ? 'event-active' : '');
 
             eventElement.innerHTML = `
                 <div class="event-logo">
@@ -171,6 +190,7 @@ function updateSchedule() {
                     limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
                 });
                 limitedSalesLinks = limitedSalesLinks.slice(0, -2);
+
                 eventElement.innerHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
 
                 event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
@@ -181,8 +201,7 @@ function updateSchedule() {
                     eventElement.appendChild(waveElement);
                 });
             }
-
-            document.getElementById('schedule').appendChild(eventElement);
+            scheduleContainer.appendChild(eventElement);
         }
 
         document.getElementById(`time-left-${index}`).textContent = eventTimeLeft.text;
