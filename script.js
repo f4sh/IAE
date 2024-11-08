@@ -141,6 +141,22 @@ function updateTimers() {
         const timeLeft = endTime - now;
         timerElement.textContent = timeLeft <= 0 ? 'Finished' : calculateTimeLeft(timeLeft);
     });
+
+    document.querySelectorAll('.wave-time-left').forEach((waveElement) => {
+        const waveEndTime = parseInt(waveElement.dataset.waveEndTime, 10);
+        const waveStatus = getWaveStatus(parseInt(waveElement.dataset.waveTimestamp), waveEndTime, now);
+        waveElement.textContent = waveStatus;
+    });
+}
+
+function getWaveStatus(waveTimestamp, nextWaveTimestamp, now) {
+    if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
+        return 'Started. Good Luck!';
+    } else if (now < waveTimestamp) {
+        return `Starting in ${calculateTimeLeft(waveTimestamp - now)}`;
+    } else {
+        return 'Passed';
+    }
 }
 
 function updateSchedule() {
@@ -192,6 +208,14 @@ function updateSchedule() {
             });
             limitedSalesLinks = limitedSalesLinks.slice(0, -2);
             eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
+            
+            event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
+                const nextWaveTimestamp = waveIndex < event.waveTimestamps.length - 1
+                    ? event.waveTimestamps[waveIndex + 1]
+                    : (nextEventTimestamp ? nextEventTimestamp : Number.MAX_SAFE_INTEGER);
+                const waveStatus = getWaveStatus(waveTimestamp, nextWaveTimestamp, now);
+                eventHTML += `<div class="wave">Wave ${waveIndex + 1}: <span class="wave-time-left" data-wave-timestamp="${waveTimestamp}" data-wave-end-time="${nextWaveTimestamp}">${waveStatus}</span></div>`;
+            });
         }
 
         eventHTML += `</div>`;
@@ -211,7 +235,7 @@ window.onload = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('action') === 'copyToDiscord') {
-      copyToDiscord();
+        copyToDiscord();
     }
 };
 
