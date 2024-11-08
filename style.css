@@ -129,7 +129,7 @@ h2 {
 }
 
 .event-active {
-    background: linear-gradient(to right, rgba(35, 52, 144, 0.5), rgba(38, 38, 113, 0.5), rgba(35, 52, 144, 0.5));
+    background: linear-gradient(to right, rgba(36, 16, 78, 0.8), rgba(38, 38, 113, 0.5), rgba(36, 16, 78, 0.8));
     border: none !important;
     margin-bottom: 10px;
     padding: 55px;
