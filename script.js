@@ -119,6 +119,21 @@ function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
     return { text: timeLeft, isHappening: isHappening, hasPassed: hasPassed };
 }
 
+function calculateTimeLeft(seconds) {
+    const days = Math.floor(seconds / (3600 * 24));
+    const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secondsLeft = Math.floor(seconds % 60);
+
+    let timeLeftText;
+    if (days > 0) {
+        timeLeftText = `${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
+    } else {
+        timeLeftText = `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s`;
+    }
+    return timeLeftText;
+}
+
 function updateSchedule() {
     const now = new Date().getTime() / 1000;
 
@@ -126,23 +141,9 @@ function updateSchedule() {
         if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
             return 'Started. Good Luck!';
         } else if (now < waveTimestamp) {
-            const timeLeft = waveTimestamp - now;
-            return calculateTimeLeft(timeLeft, timeLeft < 86400);
+            return 'Upcoming';
         } else {
             return 'Passed';
-        }
-    }
-
-    function calculateTimeLeft(seconds, showSeconds = true) {
-        const days = Math.floor(seconds / (3600 * 24));
-        const hours = Math.floor((seconds % (3600 * 24)) / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secondsLeft = Math.floor(seconds % 60);
-        if (days > 0) return `${days}d:${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
-        if (showSeconds || seconds < 86400) {
-            return `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m:${secondsLeft.toString().padStart(2, '0')}s`;
-        } else {
-            return `${hours.toString().padStart(2, '0')}h:${minutes.toString().padStart(2, '0')}m`;
         }
     }
 
@@ -161,76 +162,72 @@ function updateSchedule() {
 
     const selectedTimeZone = document.getElementById('timezone-selector').value;
     const scheduleContainer = document.getElementById('schedule');
+    scheduleContainer.innerHTML = '';
 
     schedule.forEach((event, index) => {
-        const eventId = `event-${index}`;
-        let eventElement = document.getElementById(eventId);
-
         const nextEventTimestamp = (index < schedule.length - 1) ? schedule[index + 1].timestamp : null;
         const eventTimeLeft = getTimeLeft(event.timestamp, nextEventTimestamp, event.end);
 
-        if (!eventElement) {
-            eventElement = document.createElement('div');
-            eventElement.id = eventId;
-            eventElement.classList.add('event');
-
-            let eventHTML = `
-                <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                <div class="location">${event.name} - ${event.location}</div>
-                <div class="time-left" id="${eventId}-time-left"></div>
-            `;
-
-            if (event.limitedSales) {
-                let limitedSalesLinks = '';
-                const sales = event.limitedSales.split(', ');
-                sales.forEach(sale => {
-                    const link = shipLinks[sale.trim()];
-                    limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
-                });
-                limitedSalesLinks = limitedSalesLinks.slice(0, -2);
-                eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
-            }
-
-            if (event.waveTimestamps) {
-                event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
-                    eventHTML += `<div class="wave" id="${eventId}-wave-${waveIndex}"></div>`;
-                });
-            }
-
-            eventElement.innerHTML = eventHTML;
-            scheduleContainer.appendChild(eventElement);
-        }
-
-        const timeLeftElement = document.getElementById(`${eventId}-time-left`);
-        let timeLeftText;
+        let eventHTML = `<div class="event${eventTimeLeft.hasPassed ? ' finished-event' : ''}">`;
 
         if (eventTimeLeft.isHappening) {
+            eventHTML = `<div class="event event-active">`;
             const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
-            timeLeftText = endTime - now > 0 ? `Ends in ${calculateTimeLeft(endTime - now)}` : 'Finished';
+            const timeLeftToEnd = endTime - now;
+
+            let timeLeftText = timeLeftToEnd > 0 ? calculateTimeLeft(timeLeftToEnd) : 'Finished';
+            eventHTML += `<div class="event-logo happening-now"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div><span class="time-left">${timeLeftText}</span></div>`;
         } else if (eventTimeLeft.hasPassed) {
-            timeLeftText = 'Event has ended';
+            eventHTML += `<div class="event-logo finished"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>`;
         } else {
-            const showSeconds = event.timestamp - now < 86400;
-            timeLeftText = `Starts in ${calculateTimeLeft(event.timestamp - now, showSeconds)}`;
+            const diffInSeconds = event.timestamp - now;
+            if (diffInSeconds > 0 && diffInSeconds <= 86400) {
+                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>
+                              <div class="location">Event starting soon in: ${eventTimeLeft.text} at ${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+            } else {
+                eventHTML += `<div class="event-logo"><img src="${event.image}" alt="${event.name}" /><div class="event-title">${event.name}</div></div>
+                              <div class="location">${convertTimestampToLocaleString(event.timestamp, selectedTimeZone)} [${event.location}]</div>`;
+            }
         }
 
-        if (timeLeftElement.textContent !== timeLeftText) {
-            timeLeftElement.textContent = timeLeftText;
-        }
+        if (event.limitedSales) {
+            let limitedSalesLinks = '';
+            const sales = event.limitedSales.split(', ');
+            sales.forEach(sale => {
+                const link = shipLinks[sale.trim()];
+                limitedSalesLinks += link ? `<a href="${link}" class="limited-sales-link" target="_blank">${sale}</a>, ` : `${sale}, `;
+            });
+            limitedSalesLinks = limitedSalesLinks.slice(0, -2);
 
-        if (event.waveTimestamps) {
+            eventHTML += `<div class="limited-sales">Limited Ship Sales: ${limitedSalesLinks}</div>`;
+            let lastWaveStatus = '';
             event.waveTimestamps.forEach((waveTimestamp, waveIndex) => {
-                const waveElement = document.getElementById(`${eventId}-wave-${waveIndex}`);
                 const nextWaveTimestamp = (waveIndex < event.waveTimestamps.length - 1) ?
                     event.waveTimestamps[waveIndex + 1] :
                     (nextEventTimestamp ? nextEventTimestamp : Number.MAX_SAFE_INTEGER);
-                const waveStatus = getWaveStatus(waveTimestamp, nextWaveTimestamp);
+                const waveTimeLeft = getTimeLeft(waveTimestamp, nextWaveTimestamp);
 
-                if (waveElement.textContent !== `Wave ${waveIndex + 1}: ${waveStatus}`) {
-                    waveElement.textContent = `Wave ${waveIndex + 1}: ${waveStatus}`;
+                let waveStatus;
+                if (waveTimeLeft.isHappening) {
+                    waveStatus = `Wave ${waveIndex + 1}: <span class="wave-happening-now">Started. Good Luck!</span>`;
+                    if (lastWaveStatus === 'Happening') {
+                        eventHTML = eventHTML.replace(`Wave ${waveIndex}: <span class="wave-happening-now">Started. Good Luck!</span>`, `Wave ${waveIndex}: <span class="finished-wave">Passed</span>`);
+                    }
+                    lastWaveStatus = 'Happening';
+                } else if (waveTimeLeft.hasPassed) {
+                    waveStatus = `Wave ${waveIndex + 1}: <span class="finished-wave">Passed</span>`;
+                    lastWaveStatus = 'Passed';
+                } else {
+                    waveStatus = `Wave ${waveIndex + 1}: ${waveTimeLeft.text}`;
+                    lastWaveStatus = 'Upcoming';
                 }
+
+                eventHTML += `<div class="wave">${waveStatus}</div>`;
             });
         }
+
+        eventHTML += `</div>`;
+        scheduleContainer.innerHTML += eventHTML;
     });
 }
 
@@ -241,7 +238,7 @@ window.onload = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('action') === 'copyToDiscord') {
-        copyToDiscord();
+      copyToDiscord();
     }
 };
 
