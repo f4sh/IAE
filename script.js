@@ -141,7 +141,7 @@ function updateSchedule() {
         if (now >= waveTimestamp && (nextWaveTimestamp === undefined || now < nextWaveTimestamp)) {
             return 'Started. Good Luck!';
         } else if (now < waveTimestamp) {
-            return 'Upcoming';
+            return calculateTimeLeft(waveTimestamp - now);
         } else {
             return 'Passed';
         }
@@ -177,8 +177,8 @@ function updateSchedule() {
 
             let eventHTML = `
                 <div class="event-logo"><img src="${event.image}" alt="${event.name}" /></div>
-                <div class="time-left" id="${eventId}-time-left"></div>
                 <div class="location">${event.name} - ${event.location}</div>
+                <div class="time-left" id="${eventId}-time-left"></div>
             `;
 
             if (event.limitedSales) {
@@ -226,7 +226,7 @@ function updateSchedule() {
                     (nextEventTimestamp ? nextEventTimestamp : Number.MAX_SAFE_INTEGER);
                 const waveStatus = getWaveStatus(waveTimestamp, nextWaveTimestamp);
 
-                if (waveElement.textContent !== waveStatus) {
+                if (waveElement.textContent !== `Wave ${waveIndex + 1}: ${waveStatus}`) {
                     waveElement.textContent = `Wave ${waveIndex + 1}: ${waveStatus}`;
                 }
             });
