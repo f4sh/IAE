@@ -15,10 +15,13 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
             font-family: 'Exo', sans-serif;
-            text-align: center;
             color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         body::before {
@@ -33,12 +36,47 @@
             z-index: -2;
         }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
         h1 {
             font-size: 20px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        a {
+            color: #6c757d;
+        }
+
+        p.title {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 10px;
+            margin-top: -10px;
+        }
+
+        .disclaimer {
+            font-size: 0.7em;
+            font-weight: 400;
+            padding: 10px 20px 0px 20px;
+        }
+
+        .disclaimer2 {
+            font-size: 16px;
+            font-weight: 700;
         }
 
         .hall-schedule {
-            margin: 10px 0;
+            margin: 5px 0;
+            font-size: 1rem;
+            padding: 3px;
         }
 
         .time-left {
@@ -49,13 +87,49 @@
         .passed {
             color: #6c757d;
         }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 16px;
+            }
+
+            .hall-schedule {
+                font-size: 0.9rem;
+            }
+
+            .container img {
+                max-width: 90%;
+                height: auto;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .container img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 
 <body>
-
-    <h1>IAE 2954 PTU Schedule</h1>
-    <div id="schedule"></div>
+    <div class="container">
+        <img src="img/2954_logo.png" alt="IAE 2954 Logo">
+        <p class="title">PTU Halls Rotation Schedule:</p>
+        <div id="schedule"></div>
+        <footer>
+            <p id="timezone-info"></p>
+            <p class="disclaimer2">For LIVE Web schedule go to: <a
+                    href="https://f4sh.github.io/IAE">https://f4sh.github.io/IAE</a></p>
+            <p class="disclaimer">© 2024 IAE 2954 Schedule - This web app is not officially affiliated
+                with Cloud Imperium Games or the Star Citizen project.</p>
+        </footer>
+    </div>
 
     <script>
         const schedule = [
@@ -117,7 +191,6 @@
 
         setInterval(updateSchedule, 1000);
     </script>
-
 </body>
 
 </html>
