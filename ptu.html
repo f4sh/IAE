@@ -178,12 +178,21 @@
                 </div>
             `;
             } else if (index === hallIndex) {
-                scheduleContainer.innerHTML += `
-                <div class="hall-schedule">
-                    <strong>${item.hall}</strong> - Time Left: 
-                    <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
-                </div>
-            `;
+                if (elapsedTime < initialCountdown) {
+                    scheduleContainer.innerHTML += `
+                    <div class="hall-schedule">
+                        <strong>${item.hall}</strong> - Starts in: 
+                        <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
+                    </div>
+                `;
+                } else {
+                    scheduleContainer.innerHTML += `
+                    <div class="hall-schedule">
+                        <strong>${item.hall}</strong> - Time Left: 
+                        <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
+                    </div>
+                `;
+                }
             } else {
                 const futureTimeLeft = (index - hallIndex) * hallDuration + timeLeft;
                 const futureHours = Math.floor(futureTimeLeft / (1000 * 60 * 60));
