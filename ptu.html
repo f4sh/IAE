@@ -153,10 +153,16 @@
         const now = Date.now();
         const elapsedTime = now - startTime;
 
-        let currentHallDuration = elapsedTime < initialCountdown ? initialCountdown : hallDuration;
-        const hallIndex = Math.floor((elapsedTime - initialCountdown) / hallDuration) % schedule.length;
-        const timeLeft = currentHallDuration - (elapsedTime % currentHallDuration);
+        let currentHallDuration, hallIndex;
+        if (elapsedTime < initialCountdown) {
+            currentHallDuration = initialCountdown;
+            hallIndex = 0;
+        } else {
+            currentHallDuration = hallDuration;
+            hallIndex = Math.floor((elapsedTime - initialCountdown) / hallDuration) % schedule.length;
+        }
 
+        const timeLeft = currentHallDuration - (elapsedTime % currentHallDuration);
         const hours = Math.floor(timeLeft / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
@@ -179,7 +185,7 @@
                 </div>
             `;
             } else {
-                const futureTimeLeft = (index - hallIndex) * hallDuration - ((elapsedTime - initialCountdown) % hallDuration);
+                const futureTimeLeft = (index - hallIndex) * hallDuration + timeLeft;
                 const futureHours = Math.floor(futureTimeLeft / (1000 * 60 * 60));
                 const futureMinutes = Math.floor((futureTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
                 scheduleContainer.innerHTML += `
