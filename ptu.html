@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAE 2954 PTU Schedule</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Exo', sans-serif;
+            text-align: center;
+            color: #fafafa;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/2954_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        .hall-schedule {
+            margin: 10px 0;
+        }
+
+        .time-left {
+            font-weight: bold;
+            color: #d9534f;
+        }
+
+        .passed {
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>IAE 2954 PTU Schedule</h1>
+    <div id="schedule"></div>
+
+    <script>
+        const schedule = [
+            { hall: "Crusader and Tumbril [Apex Hall]" },
+            { hall: "Aegis Dynamics [Zenith Hall]" },
+            { hall: "MISC, MIRAI [Apex Hall]" },
+            { hall: "Alien Manufacturers [Zenith Hall]" },
+            { hall: "RSI [Apex Hall]" },
+            { hall: "ARGO, CNOU, Greycat, Kruger [Zenith Hall]" },
+            { hall: "Drake [Apex Hall]" },
+            { hall: "Origin [Zenith Hall]" },
+            { hall: "Anvil Aerospace [Apex Hall]" },
+            { hall: "Best In Show [Zenith Hall]" }
+        ];
+
+        const hallDuration = 4.5 * 60 * 60 * 1000;
+        const startTime = new Date("2024-11-12T00:32:29Z").getTime();
+
+        function updateSchedule() {
+            const now = Date.now();
+            const elapsedTime = now - startTime;
+
+            const hallIndex = Math.floor(elapsedTime / hallDuration) % schedule.length;
+            const timeLeft = hallDuration - (elapsedTime % hallDuration);
+
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            const scheduleContainer = document.getElementById('schedule');
+            scheduleContainer.innerHTML = '';
+
+            schedule.forEach((item, index) => {
+                if (index < hallIndex) {
+                    scheduleContainer.innerHTML += `
+                    <div class="hall-schedule passed">
+                        <strong>${item.hall}</strong> - Status: Passed
+                    </div>
+                `;
+                } else if (index === hallIndex) {
+                    scheduleContainer.innerHTML += `
+                    <div class="hall-schedule">
+                        <strong>${item.hall}</strong> - Time Left: 
+                        <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
+                    </div>
+                `;
+                } else {
+                    const futureTimeLeft = (index - hallIndex) * hallDuration - (elapsedTime % hallDuration);
+                    const futureHours = Math.floor(futureTimeLeft / (1000 * 60 * 60));
+                    const futureMinutes = Math.floor((futureTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    scheduleContainer.innerHTML += `
+                    <div class="hall-schedule">
+                        <strong>${item.hall}</strong> - Starts in: ${futureHours}h ${futureMinutes}m
+                    </div>
+                `;
+                }
+            });
+        }
+
+        setInterval(updateSchedule, 1000);
+    </script>
+
+</body>
+
+</html>
