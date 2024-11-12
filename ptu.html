@@ -131,66 +131,66 @@
         </footer>
     </div>
 
-    <script>
-        const schedule = [
-            { hall: "Crusader and Tumbril [Apex Hall]" },
-            { hall: "Aegis Dynamics [Zenith Hall]" },
-            { hall: "MISC, MIRAI [Apex Hall]" },
-            { hall: "Alien Manufacturers [Zenith Hall]" },
-            { hall: "RSI [Apex Hall]" },
-            { hall: "ARGO, CNOU, Greycat, Kruger [Zenith Hall]" },
-            { hall: "Drake [Apex Hall]" },
-            { hall: "Origin [Zenith Hall]" },
-            { hall: "Anvil Aerospace [Apex Hall]" },
-            { hall: "Best In Show [Zenith Hall]" }
-        ];
+<script>
+    const schedule = [
+        { hall: "Crusader and Tumbril [Apex Hall]" },
+        { hall: "Aegis Dynamics [Zenith Hall]" },
+        { hall: "MISC, MIRAI [Apex Hall]" },
+        { hall: "Alien Manufacturers [Zenith Hall]" },
+        { hall: "RSI [Apex Hall]" },
+        { hall: "ARGO, CNOU, Greycat, Kruger [Zenith Hall]" },
+        { hall: "Drake [Apex Hall]" },
+        { hall: "Origin [Zenith Hall]" },
+        { hall: "Anvil Aerospace [Apex Hall]" },
+        { hall: "Best In Show [Zenith Hall]" }
+    ];
 
-        const hallDuration = 4.5 * 60 * 60 * 1000;
-        const startTime = new Date("2024-11-12T21:30:00Z").getTime();
+    const hallDuration = 4.5 * 60 * 60 * 1000;
+    const startTime = new Date("2024-11-12T21:30:00Z").getTime();
 
-        function updateSchedule() {
-            const now = Date.now();
-            const elapsedTime = now - startTime;
+    function updateSchedule() {
+        const now = Date.now();
+        const elapsedTime = now - startTime;
+        const hallIndex = Math.floor(elapsedTime / hallDuration) % schedule.length;
+        const timeLeft = hallDuration - (elapsedTime % hallDuration);
+        const adjustedTimeLeft = elapsedTime < hallDuration ? hallDuration : timeLeft;
 
-            const hallIndex = Math.floor(elapsedTime / hallDuration) % schedule.length;
-            const timeLeft = hallDuration - (elapsedTime % hallDuration);
+        const hours = Math.floor(adjustedTimeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((adjustedTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((adjustedTimeLeft % (1000 * 60)) / 1000);
 
-            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        const scheduleContainer = document.getElementById('schedule');
+        scheduleContainer.innerHTML = '';
 
-            const scheduleContainer = document.getElementById('schedule');
-            scheduleContainer.innerHTML = '';
+        schedule.forEach((item, index) => {
+            if (index < hallIndex) {
+                scheduleContainer.innerHTML += `
+                <div class="hall-schedule passed">
+                    <strong>${item.hall}</strong> - Status: Passed
+                </div>
+            `;
+            } else if (index === hallIndex) {
+                scheduleContainer.innerHTML += `
+                <div class="hall-schedule">
+                    <strong>${item.hall}</strong> - Time Left: 
+                    <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
+                </div>
+            `;
+            } else {
+                const futureTimeLeft = (index - hallIndex) * hallDuration - (elapsedTime % hallDuration);
+                const futureHours = Math.floor(futureTimeLeft / (1000 * 60 * 60));
+                const futureMinutes = Math.floor((futureTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                scheduleContainer.innerHTML += `
+                <div class="hall-schedule">
+                    <strong>${item.hall}</strong> - Starts in: ${futureHours}h ${futureMinutes}m
+                </div>
+            `;
+            }
+        });
+    }
 
-            schedule.forEach((item, index) => {
-                if (index < hallIndex) {
-                    scheduleContainer.innerHTML += `
-                    <div class="hall-schedule passed">
-                        <strong>${item.hall}</strong> - Status: Passed
-                    </div>
-                `;
-                } else if (index === hallIndex) {
-                    scheduleContainer.innerHTML += `
-                    <div class="hall-schedule">
-                        <strong>${item.hall}</strong> - Time Left: 
-                        <span class="time-left">${hours}h ${minutes}m ${seconds}s</span>
-                    </div>
-                `;
-                } else {
-                    const futureTimeLeft = (index - hallIndex) * hallDuration - (elapsedTime % hallDuration);
-                    const futureHours = Math.floor(futureTimeLeft / (1000 * 60 * 60));
-                    const futureMinutes = Math.floor((futureTimeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    scheduleContainer.innerHTML += `
-                    <div class="hall-schedule">
-                        <strong>${item.hall}</strong> - Starts in: ${futureHours}h ${futureMinutes}m
-                    </div>
-                `;
-                }
-            });
-        }
-
-        setInterval(updateSchedule, 1000);
-    </script>
+    setInterval(updateSchedule, 1000);
+</script>
 </body>
 
 </html>
