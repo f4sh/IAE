@@ -65,7 +65,7 @@ const schedule = [
         name: "IAE 2954 Finale",
         timestamp: 1733155200, // December 2, 4 PM GMT
         location: "Zenith Hall",
-        end: 1733366400 // December 5, 4 PM GMT
+        end: 1733414400 // December 5, 4 PM GMT
     }
 ];
 
@@ -252,7 +252,7 @@ function copyToDiscord() {
         `**Origin:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
         `**Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n` +
         `**Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n` +
-        `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733366400:f> [Zenith Hall <t:1733366400:R>]`;
+        `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733414400:f> [Zenith Hall <t:1733366400:R>]`;
 
     navigator.clipboard.writeText(discordSchedule).then(() => {
         document.getElementById('copyToDiscordBtn').innerText = 'Copied schedule in Discord format';
