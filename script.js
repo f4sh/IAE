@@ -27,7 +27,7 @@ const schedule = [
         name: "RSI",
         timestamp: 1732636800, // November 26, 4 PM GMT
         location: "Apex Hall",
-        limitedSales: "Constellation Phoenix",
+        limitedSales: "Polaris, Constellation Phoenix",
         waveTimestamps: [1732636800, 1732665600, 1732694400]
     },
     {
