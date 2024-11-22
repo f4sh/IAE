@@ -160,7 +160,7 @@ function updateSchedule() {
 
         if (eventTimeLeft.isHappening) {
             eventHTML = `<div class="event event-active">`;
-            const endTime = event.end ? event.end : event.timestamp + 48 * 3600;
+            const endTime = event.end ? event.end : event.timestamp + 24 * 3600;
             const timeLeftToEnd = endTime - (new Date().getTime() / 1000);
 
             let timeLeftText;
