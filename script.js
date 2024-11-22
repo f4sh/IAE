@@ -98,7 +98,7 @@ function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
         hasPassed = now > endTimestamp;
     } else {
         const timeUntilStart = timestamp - now;
-        const duration = 172800;
+        const duration = 86400;
         timeLeft = calculateTimeLeft(timeUntilStart);
         isHappening = timeUntilStart <= 0 && timeUntilStart > -duration;
         hasPassed = timeUntilStart <= -duration;
