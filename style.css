@@ -1,9 +1,21 @@
 :root {
     --text-color: #ffffff;
     --background-color: #121218;
+    --accent-gold: #FFB648;
+    --accent-gold-deep: #D9A03B;
     --button-bg: #D9A03B;
     --button-hover-bg: #BD872A;
     --button-active-bg: #9A6F22;
+    --steel-900: #0E0E11;
+    --steel-800: #18191F;
+    --steel-700: #1C1D24;
+    --steel-600: #26282E;
+    --steel-500: #2E3037;
+    --steel-400: #484850;
+    --muted: #7A7A85;
+    --border-steel: rgba(255,255,255,0.08);
+    --glow-gold-soft: rgba(255,186,90,0.22);
+    --glow-gold-faint: rgba(217,160,59,0.10);
 }
 
 *,
@@ -20,12 +32,13 @@ html, body {
     font-family: 'Exo', sans-serif;
     text-align: center;
     color: var(--text-color);
+    background: var(--background-color);
 }
 
 body::before {
     content: "";
     position: fixed;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(180deg, #0E0E11 0%, #18191F 35%, #1C1D24 70%, #0E0E11 100%);
     z-index: -2;
 }
@@ -34,7 +47,7 @@ body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 60% 0%, rgba(255,186,90,0.22), transparent 60%);
+    background: radial-gradient(800px 500px at 60% 0%, var(--glow-gold-soft), transparent 60%);
     pointer-events: none;
     z-index: -1;
 }
@@ -43,10 +56,7 @@ body::after {
     body::after {
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 0; left: 0; right: 0; bottom: 0;
         z-index: -1;
         pointer-events: none;
     }
@@ -72,22 +82,23 @@ img#schedule-heading {
 .disclaimer {
     font-size: 0.7em;
     font-weight: 400;
-    padding: 30px 20px 0px 20px;
+    padding: 30px 20px 0 20px;
     color: var(--text-color);
 }
 
 #copyToDiscordBtn {
     display: block;
     background-color: var(--button-bg);
-    color: white;
-    border: none;
+    color: #121218;
+    border: 1px solid rgba(0,0,0,0.15);
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.15s ease, transform 0.06s ease;
     margin-top: 10px;
     width: 325px;
+    font-weight: 700;
 }
 
 #copyToDiscordBtn:hover {
@@ -96,10 +107,12 @@ img#schedule-heading {
 
 #copyToDiscordBtn:active {
     background-color: var(--button-active-bg);
+    transform: translateY(1px);
 }
 
 #copyToDiscordBtn:focus {
-    outline: none;
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
 }
 
 h2 {
@@ -118,11 +131,20 @@ h2 {
 }
 
 .event {
-    border: 1px solid rgba(36, 16, 78, 1);
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 40px 20px 40px 20px;
-    transition: opacity 0.3s ease-in-out;
+    border: 1px solid var(--border-steel);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 40px 20px;
+    transition: opacity 0.3s ease-in-out, border-color 0.2s ease;
+}
+
+.event-active {
+    background: linear-gradient(to right, rgba(217,160,59,0.10), rgba(217,160,59,0.03), rgba(217,160,59,0.10));
+    border: 1px solid rgba(217,160,59,0.35) !important;
+    margin-bottom: 12px;
+    padding: 55px;
+    box-shadow: 0 0 0 1px rgba(217,160,59,0.12) inset, 0 10px 30px rgba(0,0,0,0.35);
 }
 
 .event-logo img {
@@ -130,30 +152,24 @@ h2 {
     height: auto;
     display: block;
     margin: 0 auto;
-    padding: 0px 10px 10px 10px;
-}
-
-.event-active {
-    background: linear-gradient(to right, rgba(36, 16, 78, 0.8), rgba(38, 38, 113, 0.5), rgba(36, 16, 78, 0.8));
-    border: none !important;
-    margin-bottom: 10px;
-    padding: 55px;
+    padding: 0 10px 10px 10px;
 }
 
 .event-name {
     font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 5px;
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     text-transform: uppercase;
 }
 
 .finished-wave {
-    color: #ff2600;
+    color: #ff3b2f;
+    font-weight: 700;
 }
 
 .finished-event {
-    color: #242b67;
+    color: var(--muted);
     text-decoration: line-through;
 }
 
@@ -167,24 +183,24 @@ footer {
 }
 
 .happening-now {
-    color: #6db0ff;
+    color: var(--accent-gold);
     font-size: 2.7em;
     font-weight: 700;
 }
 
 .wave-happening-now {
-    color: #6db0ff;
+    color: var(--accent-gold);
     font-weight: 700;
 }
 
 .limited-sales {
-    color: #6db0ff;
+    color: var(--accent-gold);
     font-weight: 700;
     margin: 2em 0 0 0;
 }
 
 .limited-sales-link {
-    color: #6db0ff;
+    color: var(--accent-gold);
     text-decoration: none;
 }
 
@@ -220,7 +236,7 @@ footer {
 }
 
 .wave-pending {
-    color: #152851;
+    color: var(--steel-400);
     font-weight: 700;
 }
 
@@ -230,8 +246,9 @@ footer {
 }
 
 #timezone-selector {
-    background: #272672;
+    background: var(--steel-600);
     color: var(--text-color);
+    border: 1px solid var(--border-steel);
     border-radius: 8px;
     padding: 10px 20px;
     font-family: 'Exo', sans-serif;
@@ -239,13 +256,14 @@ footer {
     width: 220px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 #timezone-selector:hover,
 #timezone-selector:focus {
-    border-color: #21004d;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-gold-deep);
+    box-shadow: 0 0 0 3px rgba(217,160,59,0.18);
+    outline: none;
 }
 
 label[for="timezone-selector"] {
@@ -278,4 +296,8 @@ label[for="timezone-selector"] {
     .location {
         font-size: 0.9em;
     }
+}
+
+body.event-finished::before {
+    background: linear-gradient(180deg, #0A0A0D 0%, #1B1C23 50%, #0A0A0D 100%);
 }
