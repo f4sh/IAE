@@ -25,13 +25,18 @@ html, body {
 body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('img/2954_bg.jpg') no-repeat center center fixed;
-    background-size: cover;
+    inset: 0;
+    background: linear-gradient(180deg, #0E0E11 0%, #18191F 35%, #1C1D24 70%, #0E0E11 100%);
     z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 60% 0%, rgba(255,186,90,0.22), transparent 60%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 @media (prefers-color-scheme: dark) {
