@@ -137,11 +137,11 @@ h2 {
 }
 
 .event-active {
-    background: linear-gradient(to right, rgba(217,160,59,0.10), rgba(217,160,59,0.03), rgba(217,160,59,0.10));
-    border: 1px solid rgba(217,160,59,0.35) !important;
+    background: linear-gradient(to right, rgba(217,160,59,.10), rgba(217,160,59,.03), rgba(217,160,59,.10));
+    border: 1px solid rgba(217,160,59,.35) !important;
     margin-bottom: 12px;
     padding: 55px;
-    box-shadow: 0 0 0 1px rgba(217,160,59,0.12) inset, 0 10px 30px rgba(0,0,0,0.35);
+    box-shadow: 0 0 0 1px rgba(217,160,59,.12) inset, 0 10px 30px rgba(0,0,0,.35);
 }
 
 .event-logo img {
@@ -259,7 +259,7 @@ footer {
 #timezone-selector:hover,
 #timezone-selector:focus {
     border-color: var(--accent-gold-deep);
-    box-shadow: 0 0 0 3px rgba(217,160,59,0.18);
+    box-shadow: 0 0 0 3px rgba(217,160,59,.18);
     outline: none;
 }
 
