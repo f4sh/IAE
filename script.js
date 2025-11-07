@@ -1,72 +1,72 @@
 const schedule = [
-    {
-        name: "Crusader and Tumbril",
-        timestamp: 1732291200, // November 22, 4 PM GMT
-        location: "Apex Hall"
-    },
-    {
-        name: "Aegis Dynamics",
-        timestamp: 1732377600, // November 23, 4 PM GMT
-        location: "Zenith Hall",
-        limitedSales: "Idris-P, Javelin, Idris K Kit",
-        waveTimestamps: [1732377600, 1732406400, 1732435200]
-    },
-    {
-        name: "MISC, MIRAI",
-        timestamp: 1732464000, // November 24, 4 PM GMT
-        location: "Apex Hall",
-        limitedSales: "Hull E",
-        waveTimestamps: [1732464000, 1732492800, 1732521600] // Adjusted wave times
-    },
-    {
-        name: "Alien Manufacturers",
-        timestamp: 1732550400, // November 25, 4 PM GMT
-        location: "Zenith Hall"
-    },
-    {
-        name: "RSI",
-        timestamp: 1732636800, // November 26, 4 PM GMT
-        location: "Apex Hall",
-        limitedSales: "Constellation Phoenix",
-        waveTimestamps: [1732636800, 1732665600, 1732694400]
-    },
-    {
-        name: "ARGO, CNOU, Greycat, Kruger",
-        timestamp: 1732723200, // November 27, 4 PM GMT
-        location: "Zenith Hall",
-        limitedSales: "Consolidated Outland Pioneer",
-        waveTimestamps: [1732723200, 1732752000, 1732780800]
-    },
-    {
-        name: "Drake",
-        timestamp: 1732809600, // November 28, 4 PM GMT
-        location: "Apex Hall",
-        limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
-        waveTimestamps: [1732809600, 1732838400, 1732867200]
-    },
-    {
-        name: "Origin",
-        timestamp: 1732896000, // November 29, 4 PM GMT
-        location: "Zenith Hall",
-        limitedSales: "890 Jump",
-        waveTimestamps: [1732896000, 1732924800, 1732953600] // Adjusted wave times
-    },
-    {
-        name: "Anvil Aerospace",
-        timestamp: 1732982400, // November 30, 4 PM GMT
-        location: "Apex Hall"
-    },
-    {
-        name: "Best In Show",
-        timestamp: 1733068800, // December 1, 4 PM GMT
-        location: "Zenith Hall"
-    },
-    {
-        name: "IAE 2954 Finale",
-        timestamp: 1733155200, // December 2, 4 PM GMT
-        location: "Zenith Hall",
-        end: 1733414400 // December 5, 4 PM GMT
-    }
+  {
+    name: "RSI",
+    timestamp: 1763654400, // Nov 20, 2025 - 16:00 UTC
+    location: "Apex Hall",
+    limitedSales: "Constellation Phoenix",
+    waveTimestamps: [1763654400, 1763740800, 1763827200]
+  },
+  {
+    name: "Origin",
+    timestamp: 1763740800, // Nov 21, 2025 - 16:00 UTC
+    location: "Zenith Hall",
+    limitedSales: "890 Jump",
+    waveTimestamps: [1763740800, 1763827200, 1763913600]
+  },
+  {
+    name: "Drake",
+    timestamp: 1763827200, // Nov 22, 2025 - 16:00 UTC
+    location: "Apex Hall",
+    limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
+    waveTimestamps: [1763827200, 1763913600, 1764000000]
+  },
+  {
+    name: "Alien Manufacturers",
+    timestamp: 1763913600, // Nov 23, 2025 - 16:00 UTC
+    location: "Zenith Hall"
+  },
+  {
+    name: "MISC, MIRAI",
+    timestamp: 1764000000, // Nov 24, 2025 - 16:00 UTC
+    location: "Apex Hall",
+    limitedSales: "Hull E",
+    waveTimestamps: [1764000000, 1764086400, 1764172800]
+  },
+  {
+    name: "Anvil Aerospace",
+    timestamp: 1764086400, // Nov 25, 2025 - 16:00 UTC
+    location: "Zenith Hall"
+  },
+  {
+    name: "ARGO, CNOU, Greycat, Kruger",
+    timestamp: 1764172800, // Nov 26, 2025 - 16:00 UTC
+    location: "Zenith Hall",
+    limitedSales: "Consolidated Outland Pioneer",
+    waveTimestamps: [1764172800, 1764259200, 1764345600]
+  },
+  {
+    name: "Crusader and Tumbril",
+    timestamp: 1764259200, // Nov 27, 2025 - 16:00 UTC
+    location: "Apex Hall"
+  },
+  {
+    name: "Aegis Dynamics",
+    timestamp: 1764345600, // Nov 28, 2025 - 16:00 UTC
+    location: "Zenith Hall",
+    limitedSales: "Idris-P, Javelin, Idris K Kit",
+    waveTimestamps: [1764345600, 1764432000, 1764518400]
+  },
+  {
+    name: "Best In Show",
+    timestamp: 1764432000, // Nov 29, 2025 - 16:00 UTC
+    location: "Zenith Hall"
+  },
+  {
+    name: "IAE 2955 Finale",
+    timestamp: 1764518400, // Nov 30, 2025 - 16:00 UTC
+    location: "Zenith Hall",
+    end: 1764777600 // Dec 3, 2025 - 16:00 UTC
+  }
 ];
 
 function populateTimeZones() {
@@ -241,22 +241,29 @@ window.onload = () => {
 };
 
 function copyToDiscord() {
-    const discordSchedule = `IAE 2954 Official Schedule:\n\n` +
-        `**Crusader and Tumbril:**\n<t:1732291200:f> [Apex Hall <t:1732291200:R>]\n\n` +
-        `**Aegis Dynamics:**\n<t:1732377600:f> [Zenith Hall <t:1732377600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\nWave 1: <t:1732377600:T>, Wave 2: <t:1732406400:T>, Wave 3: <t:1732435200:T>\n\n` +
-        `**MISC, MIRAI:**\n<t:1732464000:f> [Apex Hall <t:1732464000:R>]\nLimited Ship Sales: Hull E\nWave 1: <t:1732464000:T>, Wave 2: <t:1732492800:T>, Wave 3: <t:1732521600:T>\n\n` +
-        `**Alien Manufacturers:**\n<t:1732550400:f> [Zenith Hall <t:1732550400:R>]\n\n` +
-        `**RSI:**\n<t:1732636800:f> [Apex Hall <t:1732636800:R>]\nLimited Ship Sales: Constellation Phoenix\nWave 1: <t:1732636800:T>, Wave 2: <t:1732665600:T>, Wave 3: <t:1732694400:T>\n\n` +
-        `**ARGO, CNOU, Greycat, Kruger:**\n<t:1732723200:f> [Zenith Hall <t:1732723200:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\nWave 1: <t:1732723200:T>, Wave 2: <t:1732752000:T>, Wave 3: <t:1732780800:T>\n\n` +
-        `**Drake:**\n<t:1732809600:f> [Apex Hall <t:1732809600:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\nWave 1: <t:1732809600:T>, Wave 2: <t:1732838400:T>, Wave 3: <t:1732867200:T>\n\n` +
-        `**Origin:**\n<t:1732896000:f> [Zenith Hall <t:1732896000:R>]\nLimited Ship Sales: 890 Jump\nWave 1: <t:1732896000:T>, Wave 2: <t:1732924800:T>, Wave 3: <t:1732953600:T>\n\n` +
-        `**Anvil Aerospace:**\n<t:1732982400:f> [Apex Hall <t:1732982400:R>]\n\n` +
-        `**Best In Show:**\n<t:1733068800:f> [Zenith Hall <t:1733068800:R>]\n\n` +
-        `**IAE 2954 Finale:**\n<t:1733155200:f> [Zenith Hall <t:1733155200:R>]\nEnd of IAE 2954: <t:1733414400:f> [Zenith Hall <t:1733366400:R>]`;
+  const discordSchedule =
+    `IAE 2955 Official Schedule:\n\n` +
+    `**RSI:**\n<t:1763654400:f> [Apex Hall <t:1763654400:R>]\nLimited Ship Sales: Constellation Phoenix\n` +
+    `Wave 1: <t:1763654400:T>, Wave 2: <t:1763740800:T>, Wave 3: <t:1763827200:T>\n\n` +
+    `**Origin:**\n<t:1763740800:f> [Zenith Hall <t:1763740800:R>]\nLimited Ship Sales: 890 Jump\n` +
+    `Wave 1: <t:1763740800:T>, Wave 2: <t:1763827200:T>, Wave 3: <t:1763913600:T>\n\n` +
+    `**Drake:**\n<t:1763827200:f> [Apex Hall <t:1763827200:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\n` +
+    `Wave 1: <t:1763827200:T>, Wave 2: <t:1763913600:T>, Wave 3: <t:1764000000:T>\n\n` +
+    `**Alien Manufacturers:**\n<t:1763913600:f> [Zenith Hall <t:1763913600:R>]\n\n` +
+    `**MISC, MIRAI:**\n<t:1764000000:f> [Apex Hall <t:1764000000:R>]\nLimited Ship Sales: Hull E\n` +
+    `Wave 1: <t:1764000000:T>, Wave 2: <t:1764086400:T>, Wave 3: <t:1764172800:T>\n\n` +
+    `**Anvil Aerospace:**\n<t:1764086400:f> [Zenith Hall <t:1764086400:R>]\n\n` +
+    `**ARGO, CNOU, Greycat, Kruger:**\n<t:1764172800:f> [Zenith Hall <t:1764172800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\n` +
+    `Wave 1: <t:1764172800:T>, Wave 2: <t:1764259200:T>, Wave 3: <t:1764345600:T>\n\n` +
+    `**Crusader and Tumbril:**\n<t:1764259200:f> [Apex Hall <t:1764259200:R>]\n\n` +
+    `**Aegis Dynamics:**\n<t:1764345600:f> [Zenith Hall <t:1764345600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\n` +
+    `Wave 1: <t:1764345600:T>, Wave 2: <t:1764432000:T>, Wave 3: <t:1764518400:T>\n\n` +
+    `**Best In Show:**\n<t:1764432000:f> [Zenith Hall <t:1764432000:R>]\n\n` +
+    `**IAE 2955 Finale:**\n<t:1764518400:f> [Zenith Hall <t:1764518400:R>]\nEnd of IAE 2955: <t:1764777600:f>`;
 
-    navigator.clipboard.writeText(discordSchedule).then(() => {
-        document.getElementById('copyToDiscordBtn').innerText = 'Copied schedule in Discord format';
-    }, (err) => {
-        console.error('Failed to copy text: ', err);
-    });
+  navigator.clipboard.writeText(discordSchedule).then(() => {
+    document.getElementById('copyToDiscordBtn').innerText = 'Copied schedule in Discord format';
+  }, (err) => {
+    console.error('Failed to copy text: ', err);
+  });
 }
