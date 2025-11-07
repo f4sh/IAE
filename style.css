@@ -1,9 +1,9 @@
 :root {
-    --text-color: #fafafa;
-    --background-color: #262671;
-    --button-bg: #5865F2;
-    --button-hover-bg: #4752C4;
-    --button-active-bg: #363E9A;
+    --text-color: #ffffff;
+    --background-color: #121218;
+    --button-bg: #D9A03B;
+    --button-hover-bg: #BD872A;
+    --button-active-bg: #9A6F22;
 }
 
 *,
