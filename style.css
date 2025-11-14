@@ -23,8 +23,7 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -60,7 +59,7 @@ body::after {
     flex-direction: column;
     align-items: center;
     padding-bottom: 30px;
-    gap: 9px;
+    gap: 8px;
 }
 
 .container {
@@ -143,7 +142,7 @@ h2 {
     margin-bottom: 16px;
     padding: 32px 24px;
     transition: opacity .3s ease-in-out, border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .1s ease;
-    text-align: left;
+    text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
@@ -260,26 +259,9 @@ footer {
     text-align: center;
 }
 
-.location,
-.limited-sales,
-.wave {
-    margin-bottom: 5px;
-}
-
-.location-small {
-    font-size: .7em;
-    padding: 10px;
-    display: block;
-    text-align: center;
-    color: var(--steel-400);
-}
-
-#schedule {
-    padding: 2em 0;
-}
-
 .wave {
     font-size: 0.95em;
+    margin-bottom: 5px;
 }
 
 .wave-pending {
@@ -307,7 +289,7 @@ footer {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     cursor: pointer;
     transition: all .2s ease;
-    text-align: left;
+    text-align: center;
 }
 
 #timezone-selector:hover,
@@ -326,9 +308,9 @@ label[for="timezone-selector"] {
     color: var(--text-color);
     font-size: 1em;
     font-weight: 700;
-    margin-right: 10px;
     text-transform: uppercase;
     letter-spacing: .04em;
+    margin-right: 10px;
 }
 
 @media (max-width: 768px) {
