@@ -112,16 +112,37 @@ const schedule = [
 ];
 
 function populateTimeZones() {
-  const timeZones = Intl.supportedValuesOf("timeZone");
   const selector = document.getElementById("timezone-selector");
+
+  let timeZones;
+  if (Intl.supportedValuesOf) {
+    timeZones = Intl.supportedValuesOf("timeZone");
+  } else {
+    // basic fallback if supportedValuesOf is not available
+    timeZones = [
+      "UTC",
+      "America/Vancouver",
+      "America/New_York",
+      "Europe/London",
+      "Europe/Warsaw",
+      "Asia/Tokyo"
+    ];
+  }
+
   timeZones.forEach(zone => {
     const option = document.createElement("option");
     option.value = zone;
     option.textContent = zone;
     selector.appendChild(option);
   });
-  selector.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  document.getElementById("timezone-info").textContent = `Your timezone is ${selector.value} and the schedule is based on that.`;
+
+  const resolved = (Intl.DateTimeFormat().resolvedOptions().timeZone) || "UTC";
+  selector.value = timeZones.includes(resolved) ? resolved : "UTC";
+
+  document.getElementById("timezone-info").textContent =
+    `Your timezone is ${selector.value} and the schedule is based on that.`;
+
+  selector.addEventListener("change", updateSchedule);
 }
 
 function convertTimestampToLocaleString(timestamp, timeZone) {
@@ -129,8 +150,7 @@ function convertTimestampToLocaleString(timestamp, timeZone) {
   return date.toLocaleString("en-US", { timeZone, hour12: true });
 }
 
-function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
-  const now = new Date().getTime() / 1000;
+function getTimeLeft(timestamp, nextTimestamp, endTimestamp, now) {
   let timeLeft;
   let isHappening;
   let hasPassed;
@@ -152,26 +172,28 @@ function getTimeLeft(timestamp, nextTimestamp, endTimestamp) {
 }
 
 function calculateTimeLeft(seconds) {
-  const days = Math.floor(seconds / (3600 * 24));
-  const hours = Math.floor((seconds % (3600 * 24)) / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secondsLeft = Math.floor(seconds % 60);
+  if (!Number.isFinite(seconds)) return "00h:00m:00s";
 
-  let timeLeftText;
+  const safeSeconds = Math.max(0, seconds);
+
+  const days = Math.floor(safeSeconds / (3600 * 24));
+  const hours = Math.floor((safeSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((safeSeconds % 3600) / 60);
+  const secondsLeft = Math.floor(safeSeconds % 60);
+
   if (days > 0) {
-    timeLeftText = `${days}d:${hours.toString().padStart(2, "0")}h:${minutes
+    return `${days}d:${hours.toString().padStart(2, "0")}h:${minutes
       .toString()
       .padStart(2, "0")}m`;
-  } else {
-    timeLeftText = `${hours.toString().padStart(2, "0")}h:${minutes
-      .toString()
-      .padStart(2, "0")}m:${secondsLeft.toString().padStart(2, "0")}s`;
   }
-  return timeLeftText;
+
+  return `${hours.toString().padStart(2, "0")}h:${minutes
+    .toString()
+    .padStart(2, "0")}m:${secondsLeft.toString().padStart(2, "0")}s`;
 }
 
 function updateSchedule() {
-  const now = new Date().getTime() / 1000;
+  const now = Date.now() / 1000;
 
   const shipLinks = {
     "Idris-P":
@@ -206,7 +228,8 @@ function updateSchedule() {
     const eventTimeLeft = getTimeLeft(
       event.timestamp,
       nextEventTimestamp,
-      event.end
+      event.end,
+      now
     );
 
     let eventHTML = `<div class="event${
@@ -214,7 +237,7 @@ function updateSchedule() {
     }">`;
 
     if (eventTimeLeft.isHappening) {
-      eventHTML = `<div class="event event-active">`;
+      eventHTML = `<div class="event event-active" aria-live="polite">`;
       const endTime = event.end ? event.end : event.timestamp + 24 * 3600;
       const timeLeftToEnd = endTime - now;
 
@@ -272,7 +295,12 @@ function updateSchedule() {
             ? event.waveTimestamps[waveIndex + 1]
             : waveTimestamp + 4 * 3600; // last wave = 4h window
 
-        const waveTimeLeft = getTimeLeft(waveTimestamp, nextWaveTimestamp);
+        const waveTimeLeft = getTimeLeft(
+          waveTimestamp,
+          nextWaveTimestamp,
+          null,
+          now
+        );
 
         let waveStatus;
         if (waveTimeLeft.isHappening) {
@@ -298,6 +326,11 @@ function updateSchedule() {
 
 window.onload = () => {
   populateTimeZones();
+  const scheduleContainer = document.getElementById("schedule");
+  if (scheduleContainer) {
+    scheduleContainer.setAttribute("aria-live", "polite");
+  }
+
   updateSchedule();
   setInterval(updateSchedule, 1000);
 
@@ -310,23 +343,23 @@ window.onload = () => {
 function copyToDiscord() {
   const discordSchedule =
     `IAE 2955 Official Schedule:\n\n` +
-    `**RSI:**\n<t:1763654400:f> [Apex Hall <t:1763654400:R>]\nLimited Ship Sales: Constellation Phoenix\n` +
+    `**RSI:**\n<t:1763654400:f> [The Vision Center <t:1763654400:R>]\nLimited Ship Sales: Constellation Phoenix\n` +
     `Wave 1: <t:1763654400:T>, Wave 2: <t:1763668800:T>, Wave 3: <t:1763683200:T>, Wave 4: <t:1763697600:T>, Wave 5: <t:1763712000:T>, Wave 6: <t:1763726400:T>\n\n` +
-    `**Origin:**\n<t:1763740800:f> [Zenith Hall <t:1763740800:R>]\nLimited Ship Sales: 890 Jump\n` +
+    `**Origin:**\n<t:1763740800:f> [The Vision Center <t:1763740800:R>]\nLimited Ship Sales: 890 Jump\n` +
     `Wave 1: <t:1763740800:T>, Wave 2: <t:1763755200:T>, Wave 3: <t:1763769600:T>, Wave 4: <t:1763784000:T>, Wave 5: <t:1763798400:T>, Wave 6: <t:1763812800:T>\n\n` +
-    `**Drake:**\n<t:1763827200:f> [Apex Hall <t:1763827200:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\n` +
+    `**Drake:**\n<t:1763827200:f> [The Vision Center <t:1763827200:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\n` +
     `Wave 1: <t:1763827200:T>, Wave 2: <t:1763841600:T>, Wave 3: <t:1763856000:T>, Wave 4: <t:1763870400:T>, Wave 5: <t:1763884800:T>, Wave 6: <t:1763899200:T>\n\n` +
-    `**Alien Manufacturers:**\n<t:1763913600:f> [Zenith Hall <t:1763913600:R>]\n\n` +
-    `**MISC, MIRAI:**\n<t:1764000000:f> [Apex Hall <t:1764000000:R>]\nLimited Ship Sales: Hull E\n` +
+    `**Alien Manufacturers:**\n<t:1763913600:f> [The Vision Center <t:1763913600:R>]\n\n` +
+    `**MISC, MIRAI:**\n<t:1764000000:f> [The Vision Center <t:1764000000:R>]\nLimited Ship Sales: Hull E\n` +
     `Wave 1: <t:1764000000:T>, Wave 2: <t:1764014400:T>, Wave 3: <t:1764028800:T>, Wave 4: <t:1764043200:T>, Wave 5: <t:1764057600:T>, Wave 6: <t:1764072000:T>\n\n` +
-    `**Anvil Aerospace:**\n<t:1764086400:f> [Zenith Hall <t:1764086400:R>]\n\n` +
-    `**ARGO, CNOU, Greycat, Kruger:**\n<t:1764172800:f> [Zenith Hall <t:1764172800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\n` +
+    `**Anvil Aerospace:**\n<t:1764086400:f> [The Vision Center <t:1764086400:R>]\n\n` +
+    `**ARGO, CNOU, Greycat, Kruger:**\n<t:1764172800:f> [The Vision Center <t:1764172800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\n` +
     `Wave 1: <t:1764172800:T>, Wave 2: <t:1764187200:T>, Wave 3: <t:1764201600:T>, Wave 4: <t:1764216000:T>, Wave 5: <t:1764230400:T>, Wave 6: <t:1764244800:T>\n\n` +
-    `**Crusader and Tumbril:**\n<t:1764259200:f> [Apex Hall <t:1764259200:R>]\n\n` +
-    `**Aegis Dynamics:**\n<t:1764345600:f> [Zenith Hall <t:1764345600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\n` +
+    `**Crusader and Tumbril:**\n<t:1764259200:f> [The Vision Center <t:1764259200:R>]\n\n` +
+    `**Aegis Dynamics:**\n<t:1764345600:f> [The Vision Center <t:1764345600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\n` +
     `Wave 1: <t:1764345600:T>, Wave 2: <t:1764360000:T>, Wave 3: <t:1764374400:T>, Wave 4: <t:1764388800:T>, Wave 5: <t:1764403200:T>, Wave 6: <t:1764417600:T>\n\n` +
-    `**Best In Show:**\n<t:1764432000:f> [Zenith Hall <t:1764432000:R>]\n\n` +
-    `**IAE 2955 Finale:**\n<t:1764518400:f> [Zenith Hall <t:1764518400:R>]\nEnd of IAE 2955: <t:1764777600:f>`;
+    `**Best In Show:**\n<t:1764432000:f> [The Vision Center <t:1764432000:R>]\n\n` +
+    `**IAE 2955 Finale:**\n<t:1764518400:f> [The Vision Center <t:1764518400:R>]\nEnd of IAE 2955: <t:1764777600:f>`;
 
   navigator.clipboard.writeText(discordSchedule).then(
     () => {
