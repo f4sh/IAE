@@ -2,7 +2,7 @@ const schedule = [
   {
     name: "RSI",
     timestamp: 1763654400, // Nov 20, 2025 - 16:00 UTC
-    location: "Apex Hall",
+    location: "The Vision Center",
     limitedSales: "Constellation Phoenix",
     waveTimestamps: [
       1763654400, // Nov 20, 2025 - 16:00 UTC
@@ -16,7 +16,7 @@ const schedule = [
   {
     name: "Origin",
     timestamp: 1763740800, // Nov 21, 2025 - 16:00 UTC
-    location: "Zenith Hall",
+    location: "The Vision Center",
     limitedSales: "890 Jump",
     waveTimestamps: [
       1763740800, // Nov 21, 2025 - 16:00 UTC
@@ -30,7 +30,7 @@ const schedule = [
   {
     name: "Drake",
     timestamp: 1763827200, // Nov 22, 2025 - 16:00 UTC
-    location: "Apex Hall",
+    location: "The Vision Center",
     limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit",
     waveTimestamps: [
       1763827200, // Nov 22, 2025 - 16:00 UTC
@@ -44,12 +44,12 @@ const schedule = [
   {
     name: "Alien Manufacturers",
     timestamp: 1763913600, // Nov 23, 2025 - 16:00 UTC
-    location: "Zenith Hall"
+    location: "The Vision Center"
   },
   {
     name: "MISC, MIRAI",
     timestamp: 1764000000, // Nov 24, 2025 - 16:00 UTC
-    location: "Apex Hall",
+    location: "The Vision Center",
     limitedSales: "Hull E",
     waveTimestamps: [
       1764000000, // Nov 24, 2025 - 16:00 UTC
@@ -63,12 +63,12 @@ const schedule = [
   {
     name: "Anvil Aerospace",
     timestamp: 1764086400, // Nov 25, 2025 - 16:00 UTC
-    location: "Zenith Hall"
+    location: "The Vision Center"
   },
   {
     name: "ARGO, CNOU, Greycat, Kruger",
     timestamp: 1764172800, // Nov 26, 2025 - 16:00 UTC
-    location: "Zenith Hall",
+    location: "The Vision Center",
     limitedSales: "Consolidated Outland Pioneer",
     waveTimestamps: [
       1764172800, // Nov 26, 2025 - 16:00 UTC
@@ -82,12 +82,12 @@ const schedule = [
   {
     name: "Crusader and Tumbril",
     timestamp: 1764259200, // Nov 27, 2025 - 16:00 UTC
-    location: "Apex Hall"
+    location: "The Vision Center"
   },
   {
     name: "Aegis Dynamics",
     timestamp: 1764345600, // Nov 28, 2025 - 16:00 UTC
-    location: "Zenith Hall",
+    location: "The Vision Center",
     limitedSales: "Idris-P, Javelin, Idris K Kit",
     waveTimestamps: [
       1764345600, // Nov 28, 2025 - 16:00 UTC
@@ -101,12 +101,12 @@ const schedule = [
   {
     name: "Best In Show",
     timestamp: 1764432000, // Nov 29, 2025 - 16:00 UTC
-    location: "Zenith Hall"
+    location: "The Vision Center"
   },
   {
     name: "IAE 2955 Finale",
     timestamp: 1764518400, // Nov 30, 2025 - 16:00 UTC
-    location: "Zenith Hall",
+    location: "The Vision Center",
     end: 1764777600 // Dec 3, 2025 - 16:00 UTC
   }
 ];
