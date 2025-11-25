@@ -47,7 +47,7 @@ const schedule = [
     location: "The Vision Center"
   },
   {
-    name: "MISC, MIRAI",
+    name: "MISC, MIRAI, Kruger",
     timestamp: 1764000000, // Nov 24, 2025 - 16:00 UTC
     location: "The Vision Center",
     limitedSales: "Hull E",
@@ -66,7 +66,7 @@ const schedule = [
     location: "The Vision Center"
   },
   {
-    name: "ARGO, CNOU, Greycat, Kruger",
+    name: "ARGO, CNOU, Greycat",
     timestamp: 1764172800, // Nov 26, 2025 - 16:00 UTC
     location: "The Vision Center",
     limitedSales: "Consolidated Outland Pioneer",
