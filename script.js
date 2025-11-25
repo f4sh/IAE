@@ -350,10 +350,10 @@ function copyToDiscord() {
     `**Drake:**\n<t:1763827200:f> [The Vision Center <t:1763827200:R>]\nLimited Ship Sales: Kraken, Kraken Privateer, Kraken Conversion Kit\n` +
     `Wave 1: <t:1763827200:T>, Wave 2: <t:1763841600:T>, Wave 3: <t:1763856000:T>, Wave 4: <t:1763870400:T>, Wave 5: <t:1763884800:T>, Wave 6: <t:1763899200:T>\n\n` +
     `**Alien Manufacturers:**\n<t:1763913600:f> [The Vision Center <t:1763913600:R>]\n\n` +
-    `**MISC, MIRAI:**\n<t:1764000000:f> [The Vision Center <t:1764000000:R>]\nLimited Ship Sales: Hull E\n` +
+    `**MISC, MIRAI, Kruger:**\n<t:1764000000:f> [The Vision Center <t:1764000000:R>]\nLimited Ship Sales: Hull E\n` +
     `Wave 1: <t:1764000000:T>, Wave 2: <t:1764014400:T>, Wave 3: <t:1764028800:T>, Wave 4: <t:1764043200:T>, Wave 5: <t:1764057600:T>, Wave 6: <t:1764072000:T>\n\n` +
     `**Anvil Aerospace:**\n<t:1764086400:f> [The Vision Center <t:1764086400:R>]\n\n` +
-    `**ARGO, CNOU, Greycat, Kruger:**\n<t:1764172800:f> [The Vision Center <t:1764172800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\n` +
+    `**ARGO, CNOU, Greycat:**\n<t:1764172800:f> [The Vision Center <t:1764172800:R>]\nLimited Ship Sales: Consolidated Outland Pioneer\n` +
     `Wave 1: <t:1764172800:T>, Wave 2: <t:1764187200:T>, Wave 3: <t:1764201600:T>, Wave 4: <t:1764216000:T>, Wave 5: <t:1764230400:T>, Wave 6: <t:1764244800:T>\n\n` +
     `**Crusader and Tumbril:**\n<t:1764259200:f> [The Vision Center <t:1764259200:R>]\n\n` +
     `**Aegis Dynamics:**\n<t:1764345600:f> [The Vision Center <t:1764345600:R>]\nLimited Ship Sales: Idris-P, Javelin, Idris K Kit\n` +
