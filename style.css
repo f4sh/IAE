@@ -7,13 +7,14 @@
     --panel-2: #2A2C33;
     --steel-400: #6A6A73;
     --muted: #8C8D95;
-    --accent-gold: #FFB648;
-    --accent-gold-deep: #D9A03B;
-    --button-bg: #D9A03B;
-    --button-hover-bg: #BD872A;
-    --button-active-bg: #9A6F22;
+    --accent-color: #FFB648;
+    --accent-color-hover: color-mix(in srgb, var(--accent-color) 82%, black);
+    --accent-color-active: color-mix(in srgb, var(--accent-color) 68%, black);
+    --accent-color-border: color-mix(in srgb, var(--accent-color) 45%, transparent);
+    --accent-color-soft: color-mix(in srgb, var(--accent-color) 18%, transparent);
+    --accent-color-subtle: color-mix(in srgb, var(--accent-color) 5%, transparent);
+    --accent-color-glow: color-mix(in srgb, var(--accent-color) 22%, transparent);
     --border-steel: rgba(255,255,255,0.08);
-    --glow-gold: rgba(255,186,90,0.22);
     --danger: #FF3B2F;
 }
 
@@ -49,7 +50,7 @@ body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: radial-gradient(900px 560px at 70% 0%, var(--glow-gold), transparent 60%);
+    background: radial-gradient(900px 560px at 70% 0%, var(--accent-color-glow), transparent 60%);
     pointer-events: none;
     z-index: -1;
 }
@@ -86,7 +87,7 @@ img#schedule-heading {
 
 #copyToDiscordBtn {
     display: block;
-    background-color: var(--button-bg);
+    background-color: var(--accent-color);
     color: #151515;
     border: 1px solid rgba(0,0,0,0.15);
     padding: 12px 18px;
@@ -102,19 +103,19 @@ img#schedule-heading {
 }
 
 #copyToDiscordBtn:hover {
-    background-color: var(--button-hover-bg);
+    background-color: var(--accent-color-hover);
     box-shadow: 0 10px 26px rgba(0,0,0,0.4);
     transform: translateY(-1px);
 }
 
 #copyToDiscordBtn:active {
-    background-color: var(--button-active-bg);
+    background-color: var(--accent-color-active);
     transform: translateY(1px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
 }
 
 #copyToDiscordBtn:focus-visible {
-    outline: 3px solid var(--accent-gold);
+    outline: 3px solid var(--accent-color);
     outline-offset: 3px;
 }
 
@@ -151,18 +152,18 @@ h2 {
 }
 
 .event:hover {
-    border-color: rgba(217,160,59,.4);
+    border-color: var(--accent-color-border);
     box-shadow: 0 16px 40px rgba(0,0,0,.45);
     transform: translateY(-1px);
 }
 
 .event-active {
-    background: linear-gradient(to right, rgba(217,160,59,.18), rgba(217,160,59,.05), rgba(217,160,59,.18));
-    border: 1px solid rgba(217,160,59,.45) !important;
+    background: linear-gradient(to right, var(--accent-color-soft), var(--accent-color-subtle), var(--accent-color-soft));
+    border: 1px solid var(--accent-color-border) !important;
     margin-bottom: 18px;
     padding: 40px 28px;
     box-shadow:
-        0 0 0 1px rgba(217,160,59,.18) inset,
+        0 0 0 1px var(--accent-color-soft) inset,
         0 18px 40px rgba(0,0,0,.55);
 }
 
@@ -174,7 +175,23 @@ h2 {
     padding: 0 10px 0;
 }
 
+.event-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.event-logos img {
+  width: 120px;
+  height: 72px;
+  object-fit: contain;
+}
+
 .event-name {
+    color: var(--accent-color);
     font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 5px;
@@ -207,7 +224,7 @@ footer {
 }
 
 .happening-now {
-    color: var(--accent-gold);
+    color: var(--accent-color);
     font-size: 2.2em;
     font-weight: 800;
     letter-spacing: .04em;
@@ -217,12 +234,11 @@ footer {
 }
 
 .wave-happening-now {
-    color: var(--accent-gold);
+    color: var(--accent-color);
     font-weight: 700;
 }
 
 .limited-sales {
-    color: var(--accent-gold);
     font-weight: 800;
     margin: 1.7em 0 0.5em;
     letter-spacing: .02em;
@@ -231,9 +247,13 @@ footer {
 }
 
 .limited-sales-link {
-    color: var(--accent-gold);
+    color: var(--accent-color);
     text-decoration: none;
     cursor: pointer;
+}
+
+.limited-sales-item {
+    color: var(--accent-color);
 }
 
 .limited-sales-link:hover {
@@ -241,7 +261,7 @@ footer {
 }
 
 .limited-sales-link:focus-visible {
-    outline: 2px solid var(--accent-gold);
+    outline: 2px solid var(--accent-color);
     outline-offset: 2px;
     border-radius: 4px;
 }
@@ -299,13 +319,13 @@ footer {
 
 #timezone-selector:hover,
 #timezone-selector:focus {
-    border-color: var(--accent-gold-deep);
-    box-shadow: 0 0 0 3px rgba(217,160,59,.18);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-color-soft);
     outline: none;
 }
 
 #timezone-selector:focus-visible {
-    outline: 3px solid var(--accent-gold);
+    outline: 3px solid var(--accent-color);
     outline-offset: 3px;
 }
 
