@@ -6,13 +6,13 @@ const scheduleConfig = {
   startTimestamp: Date.UTC(2026, 10, 13, 16) / 1000,
   location: "Tobin Expo Center",
   events: [
-    { name: "RSI", days: 1, limitedSales: "Constellation Phoenix" },
+    { name: "RSI", days: 1 },
     { name: "Origin", days: 1, limitedSales: "890 Jump" },
     { name: "Anvil Aerospace", days: 1 },
     { name: "Crusader and Tumbril", days: 1 },
     { name: "Drake", days: 1, limitedSales: "Kraken, Kraken Privateer, Kraken Conversion Kit" },
     { name: "ARGO, CNOU, Greycat", days: 1, limitedSales: "Consolidated Outland Pioneer" },
-    { name: "MISC, MIRAI, Kruger", days: 1, limitedSales: "Hull E" },
+    { name: "MISC, MIRAI, Kruger", days: 1 },
     { name: "Aegis Dynamics", days: 1, limitedSales: "Idris-P, Javelin, Idris K Kit" },
     { name: "Alien Manufacturers", days: 1 },
     { name: "Best In Show", days: 1 },
@@ -25,22 +25,18 @@ const accentColor = "#FFB648";
 const shipLinks = {
   "Idris-P":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=idris&sort=weight&direction=desc",
-  Javelin:
+  "Javelin":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=javelin&sort=weight&direction=desc",
   "Idris K Kit":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=Idris+P+After+Market+Kit&sort=weight&direction=desc",
   "890 Jump":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=890&sort=weight&direction=desc",
-  "Constellation Phoenix":
-    "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=phoenix&sort=weight&direction=desc",
-  Kraken:
+  "Kraken":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken&sort=weight&direction=desc",
   "Kraken Conversion Kit":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+conversion&sort=weight&direction=desc",
   "Kraken Privateer":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=kraken+privateer&sort=weight&direction=desc",
-  "Hull E":
-    "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=hull+e&sort=weight&direction=desc",
   "Consolidated Outland Pioneer":
     "https://robertsspaceindustries.com/store/pledge/browse/extras/?search=pioneer&sort=weight&direction=desc"
 };
